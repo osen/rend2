@@ -1,6 +1,7 @@
 project(REND)
 
 include_directories(
+  import/iron/include
   src
 )
 
