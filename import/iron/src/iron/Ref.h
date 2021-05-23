@@ -30,6 +30,17 @@ struct ref
   ref &operator=(const val<U> &value) { reset(&value.mut.raw, &value.mut.count); return *this; }
 
   /*
+   * unique
+   */
+  ref(const unique<T> &other) : mut() { reset(&other.mut.raw, &other.mut.count); }
+  ref &operator=(const unique<T> &other) { reset(&other.mut.raw, &other.mut.count); return *this; }
+
+  template <typename U>
+  ref(const unique<U> &other) : mut() { reset(&other.mut.raw, &other.mut.count); }
+  template <typename U>
+  ref &operator=(const unique<U> &other) { reset(&other.mut.raw, &other.mut.count); return *this; }
+
+  /*
    * box
    */
   ref(const box<T> &value) : mut() { reset(value.mut.raw, value.mut.count); }
@@ -54,9 +65,23 @@ struct ref
   /*
    * operators
    */
-  T *operator->() const { return get(); }
-  T &operator*() const { return *get(); }
+  //T *operator->() const { return get(); }
+  //T &operator->() const { return *get(); }
+  //T *operator&() const { return get(); }
+  //T &operator*() const { return *get(); }
   operator T &() const { return *get(); }
+
+  bool valid() const
+  {
+    return mut.raw;
+  }
+
+  void reset() const
+  {
+    if(mut.count) (*mut.count)--;
+    mut.raw = NULL;
+    mut.count = NULL;
+  }
 
 private:
   mutable struct Mut
@@ -79,7 +104,7 @@ private:
 
   void reset(T *const &raw, int *const &count) const
   {
-    if(mut.count) (*mut.count)--;
+    reset();
 
     mut.raw = raw;
     mut.count = count;

@@ -85,7 +85,7 @@
   box<int> dat2;
   ref<int> d = dat;
   dat2 = dat;
-  *d = 9;
+  d = 9;
 #endif
 
 #ifdef TEST_BOX_MOVE_REF_DANGLING

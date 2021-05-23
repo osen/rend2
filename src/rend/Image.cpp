@@ -6,11 +6,11 @@ namespace rend
 
 Image::Image()
 {
-  context = Window::getContext();
-  id = box<GLuint>::make();
-  glGenTextures(1, id);
+  context = (*Window::getInstance()).getContext();
+  //context = Window::getInstance()->getContext();
+  glGenTextures(1, &id);
 
-  if(!*id)
+  if(!id)
   {
     panic("Failed to create texture");
   }
@@ -18,7 +18,7 @@ Image::Image()
 
 Image::~Image()
 {
-  glDeleteTextures(1, id);
+  glDeleteTextures(1, &id);
 }
 
 }

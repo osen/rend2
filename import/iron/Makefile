@@ -8,6 +8,7 @@ all:
 	cat src/iron/head.h > include/iron
 	cat src/iron/panic.h >> include/iron
 	cat src/iron/Val.h >> include/iron
+	cat src/iron/Unique.h >> include/iron
 	cat src/iron/Box.h >> include/iron
 	cat src/iron/Ref.h >> include/iron
 	cat src/iron/Vec.h >> include/iron

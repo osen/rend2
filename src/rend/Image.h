@@ -13,7 +13,7 @@ struct Image
 
 private:
   ref<SDL_GLContext> context;
-  box<GLuint> id;
+  unique<GLuint> id;
 
 };
 

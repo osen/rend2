@@ -7,18 +7,28 @@ namespace rend
 
 struct Window
 {
+  static ref<Window *> getInstance();
+
   Window();
   ~Window();
 
-  static void show();
-  static void close();
-  static ref<SDL_GLContext> getContext();
+  void start();
+  void stop();
+  ref<SDL_GLContext> getContext();
 
 private:
-  static box<Window> instance;
+  static ref<Window *> instance;
 
-  box<SDL_Window *> window;
-  box<SDL_GLContext> context;
+  unique<Window *> self;
+  unique<SDL_Window *> window;
+  unique<SDL_GLContext> context;
+  unique<bool> quit;
+
+  virtual void onTick();
+  virtual void onDisplay();
+  virtual void onKeyboard();
+  virtual void onMouse();
+
 };
 
 }

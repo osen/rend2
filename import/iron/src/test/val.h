@@ -76,7 +76,7 @@
   val<Employee *> a = new Employee();
   ref<Employee *> b = a;
   a->id = 9;
-  (*b)->id = 8;
+  (*b).id = 8;
   delete b; a = NULL;
 #endif
 

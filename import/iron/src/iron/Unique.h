@@ -2,48 +2,47 @@ template <typename T>
 struct ref;
 
 template <typename T>
-struct val
+struct unique
 {
   template <typename U>
-  friend struct val;
+  friend struct unique;
 
   template <typename U>
   friend struct ref;
 
   /*
-   * val
+   * unique
    */
-  val() : mut() { }
-  val(const val &copy) : mut(copy.mut.raw) { }
-  val &operator=(const val &other) { reset(other.mut.raw); return *this; }
-  ~val() { check(); }
-
-  template <typename U>
-  val(const val<U> &other) : mut(other.mut.raw) { }
-  template <typename U>
-  val &operator=(const val<U> &other) { reset(other.mut.raw); return *this; }
+  unique() : mut() { }
+  ~unique() { check(); }
 
   /*
    * T
    */
-  val(const T &value) : mut(value) { }
-  val &operator=(const T &value) { reset(value); return *this; }
+  unique(const T &other) : mut(other) { }
+  unique &operator=(const T &other) { reset(other); return *this; }
 
   template <typename U>
-  val(U &value) : mut(value) { }
+  unique(U &other) : mut(other) { }
   template <typename U>
-  val &operator=(U &value) { reset(value); return *this; }
+  unique &operator=(U &other) { reset(other); return *this; }
 
   /*
    * operators
    */
   T &operator->() const { return mut.raw; }
-  //T *operator->() const { return &mut.raw; }
   T *operator&() const { return &mut.raw; }
   //T &operator*() const { return mut.raw; }
   operator T &() const { return mut.raw; }
 
 private:
+  unique(const unique &copy);
+  unique &operator=(const unique &other);
+
+  template <typename U>
+  unique(const unique<U> &other);
+  template <typename U>
+  unique &operator=(const unique<U> &other);
 
   mutable struct Mut
   {
