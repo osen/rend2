@@ -30,9 +30,8 @@ struct unique
   /*
    * operators
    */
-  T &operator->() const { return mut.raw; }
+  T *operator->() const { return &mut.raw; }
   T *operator&() const { return &mut.raw; }
-  //T &operator*() const { return mut.raw; }
   operator T &() const { return mut.raw; }
 
 private:

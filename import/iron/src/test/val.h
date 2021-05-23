@@ -75,7 +75,7 @@
 #ifdef TEST_VAL_RAW_PTR
   val<Employee *> a = new Employee();
   ref<Employee *> b = a;
-  a->id = 9;
+  (*a).id = 9;
   (*b).id = 8;
   delete b; a = NULL;
 #endif
