@@ -84,3 +84,30 @@
   val<Employee *> a = 1;
 #endif
 
+#ifdef TEST_VAL_DEREFERENCE
+  val<Employee> a;
+  val<Employee *> b(&a);
+  unique<Employee> c;
+  unique<Employee *> d(&c);
+  box<Employee> e = box<Employee>::make();
+  ref<Employee> f = a;
+  ref<Employee *> g(b);
+
+  a->id = 9;
+  (*b).id = 9;
+  c->id = 9;
+  (*d).id = 9;
+  e->id = 9;
+  f->id = 9;
+  (*g).id = 9;
+#endif
+
+#ifdef TEST_VAL_COPY_INITIALIZATION
+  val<int> b = 9;
+#endif
+
+#ifdef TEST_UNIQUE_COPY_INITIALIZATION
+  //unique<Employee> a = Employee();
+  unique<int> b = 9;
+#endif
+

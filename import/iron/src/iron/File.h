@@ -37,7 +37,7 @@ struct freader
     this->fp = fp;
   }
 
-  unsigned char getc()
+  unsigned char readChar()
   {
     int rtn = fgetc(*fp);
 

@@ -9,6 +9,8 @@ run()
   exec_success VAL_ASSIGN
   exec_success VAL_ASSIGN_CONST
   exec_success VAL_RAW_PTR
+  exec_success VAL_DEREFERENCE
+  exec_success VAL_COPY_INITIALIZATION
   compile_fail VAL_INVALID_PTR
   compile_fail VAL_CONST_ASSIGN_1
   compile_fail VAL_CONST_ASSIGN_2
@@ -16,6 +18,7 @@ run()
   compile_fail VAL_CONST_ASSIGN_4
   compile_fail VAL_CONST_ASSIGN_5
   compile_fail VAL_CONST_ASSIGN_6
+  compile_fail UNIQUE_COPY_INITIALIZATION
 
   exec_success BOX
   exec_success BOX_INIT

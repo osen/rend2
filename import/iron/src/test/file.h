@@ -12,7 +12,7 @@ f = freader("Makefile");
 
 while(!f.eof())
 {
-  char c = f.getc();
+  char c = f.readChar();
 
   printf("%c", c);
 }
