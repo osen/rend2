@@ -45,6 +45,8 @@ run()
   exec_fail VEC_DANGLE_1
   exec_fail VEC_DANGLE_2
 
+  exec_success ENABLE_REF
+
   exec_success FILE
 }
 

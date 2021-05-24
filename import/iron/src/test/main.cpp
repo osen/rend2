@@ -1,6 +1,6 @@
 #include <iron>
 
-struct Employee
+struct Employee : enable_ref
 {
   val<int> id;
 
@@ -27,6 +27,7 @@ int main()
 #include "box.h"
 #include "vec.h"
 #include "file.h"
+#include "enable_ref.h"
 
   return 0;
 }

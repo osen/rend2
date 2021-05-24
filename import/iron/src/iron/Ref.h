@@ -1,4 +1,3 @@
-
 template <typename T>
 struct ref
 {
@@ -12,6 +11,20 @@ struct ref
   ref(const ref &copy) : mut() { reset(copy.mut.raw, copy.mut.count); }
   ref &operator=(const ref &other) { reset(other.mut.raw, other.mut.count); return *this; }
   ~ref() { reset(NULL, NULL); }
+
+  /*
+   * enable_ref
+   */
+  static ref<T> bind(T *raw)
+  {
+    ref<T> rtn;
+
+    rtn.mut.count = &raw->mut.count;
+    rtn.mut.raw = raw;
+    (*rtn.mut.count)++;
+
+    return rtn;
+  }
 
   template <typename U>
   ref(const ref<U> &other) : mut() { reset(other.mut.raw, other.mut.count); }
