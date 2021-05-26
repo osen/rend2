@@ -23,6 +23,7 @@ struct box
   T *operator->() const { return get(); }
   //T &operator*() const { return *get(); }
   operator T *() const { return get(); }
+  //operator T &() const { return *get(); }
 
   static box make()
   {

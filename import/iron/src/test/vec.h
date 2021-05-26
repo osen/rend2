@@ -50,3 +50,24 @@
   a = vec<int>();
 #endif
 
+//#ifdef TEST_VEC_BOX
+  vec<box<Employee> > a;
+  a.push(box<Employee>::make());
+  //a[0]->vec_sink(a);
+  //a.clear();
+
+  a.push(box<Employee>::make());
+  a.push(box<Employee>::make());
+  a[0]->id = 9;
+  a[0]->id = 9;
+  a[0]->id = 9;
+
+  ref<Employee> b = a[0];
+  b->id = 9;
+  //b->vec_sink(a);
+
+  val<Employee> f;
+  ref<Employee> g = f;
+  g->id = 7;
+
+//#endif

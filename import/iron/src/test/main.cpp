@@ -8,6 +8,11 @@ struct Employee : enable_ref
   {
 
   }
+
+  void vec_sink(vec<box<Employee> > &emps)
+  {
+    emps.clear();
+  }
 };
 
 struct Manager : public Employee
