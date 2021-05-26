@@ -3,9 +3,9 @@
 namespace rend
 {
 
-ref<Window *> Window::instance;
+ref<Window> Window::instance;
 
-ref<Window *> Window::getInstance()
+ref<Window> Window::getInstance()
 {
   return instance;
 }
@@ -36,8 +36,7 @@ Window::Window()
     panic("Failed to create OpenGL context");
   }
 
-  self = this;
-  instance = self;
+  instance = ref<Window>::bind(this);
 }
 
 Window::~Window()

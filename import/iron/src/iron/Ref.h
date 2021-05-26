@@ -10,7 +10,7 @@ struct ref
   ref() : mut() { }
   ref(const ref &copy) : mut() { reset(copy.mut.raw, copy.mut.count); }
   ref &operator=(const ref &other) { reset(other.mut.raw, other.mut.count); return *this; }
-  ~ref() { reset(NULL, NULL); }
+  ~ref() { reset(); }
 
   /*
    * enable_ref

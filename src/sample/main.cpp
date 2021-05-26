@@ -2,14 +2,14 @@
 
 int main()
 {
-  val<Window> window;
+  Window window;
   Image image;
 
 /*
   KeyInfo ki = Keyboard::queryKey(KEY_D);
  */
 
-  window->start();
+  window.start();
 
   return 0;
 }

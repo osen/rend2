@@ -5,9 +5,9 @@
 namespace rend
 {
 
-struct Window
+struct Window : enable_ref
 {
-  static ref<Window *> getInstance();
+  static ref<Window> getInstance();
 
   Window();
   ~Window();
@@ -17,9 +17,8 @@ struct Window
   ref<SDL_GLContext> getContext();
 
 private:
-  static ref<Window *> instance;
+  static ref<Window> instance;
 
-  unique<Window *> self;
   unique<SDL_Window *> window;
   unique<SDL_GLContext> context;
   unique<bool> quit;

@@ -6,8 +6,7 @@ namespace rend
 
 Image::Image()
 {
-  context = (*Window::getInstance()).getContext();
-  //context = Window::getInstance()->getContext();
+  context = Window::getInstance()->getContext();
   glGenTextures(1, &id);
 
   if(!id)
