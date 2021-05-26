@@ -13,6 +13,11 @@ struct Employee : enable_ref
   {
     emps.clear();
   }
+
+  void box_sink(box<Employee> &emp)
+  {
+    emp.reset();
+  }
 };
 
 struct Manager : public Employee

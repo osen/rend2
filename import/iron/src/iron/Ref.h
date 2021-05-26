@@ -26,6 +26,11 @@ struct ref
     return rtn;
   }
 
+  static ref<T> bind(T &raw)
+  {
+    return bind(&raw);
+  }
+
   template <typename U>
   ref(const ref<U> &other) : mut() { reset(other.mut.raw, other.mut.count); }
   template <typename U>
@@ -67,11 +72,11 @@ struct ref
   /*
    * T
    */
-  ref(const T &value) : mut() { *get() = value; }
+  //ref(const T &value); // : mut() { *get() = value; }
   ref &operator=(const T &value) { *get() = value; return *this; }
 
-  template <typename U>
-  ref(const U &value) : mut() { *get() = value; }
+  //template <typename U>
+  //ref(const U &value); // : mut() { *get() = value; }
   template <typename U>
   ref &operator=(const U &value) { *get() = value; return *this; }
 
@@ -126,4 +131,7 @@ private:
   }
 
 };
+
+template <typename T>
+ref<T> box<T>::operator->() const { return *this; }
 

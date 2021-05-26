@@ -20,10 +20,9 @@ struct box
   /*
    * operators
    */
-  T *operator->() const { return get(); }
-  //T &operator*() const { return *get(); }
+  //T *operator->() const { return get(); }
+  ref<T> operator->() const;
   operator T *() const { return get(); }
-  //operator T &() const { return *get(); }
 
   static box make()
   {
@@ -107,4 +106,7 @@ private:
   }
 
 };
+
+//template <typename T>
+//ref<T> box<T>::operator->() const { return *this; }
 

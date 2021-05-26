@@ -3,22 +3,27 @@
 #endif
 
 #ifdef TEST_VEC_PUSH
-  vec<Employee> a;
-  a.push(Employee());
-  a.push(Employee());
-  a.push(a[1]);
-  ref<Employee> b = a[1];
+  vec<int> a;
+  a.push(1);
+  a.push(2);
+  a.push(3);
+  a[1] = 9;
+#endif
+
+#ifdef TEST_VEC_OOB
+  vec<int> a;
+  a.push(1);
+  a.push(2);
+  a.push(3);
+  a[3] = 9;
 #endif
 
 #ifdef TEST_VEC_REF
-  vec<int> c;
-  c.push(9);
-  c.push(8);
-  c.push(7);
-  ref<int> d = c[2];
-  d = 3;
-  c[2] = 2;
-  d = ref<int>();
+  vec<Employee> a;
+  a.push(Employee());
+  a.push(Employee());
+  a.push(Employee());
+  ref<Employee> b = ref<Employee>::bind(a[2]);
 #endif
 
 #ifdef TEST_VEC_COPY
@@ -33,24 +38,24 @@
 #endif
 
 #ifdef TEST_VEC_DANGLE_1
-  vec<int> a;
-  a.push(9);
-  a.push(8);
-  a.push(7);
-  ref<int> b = a[2];
+  vec<val<Employee> > a;
+  a.push(Employee());
+  a.push(Employee());
+  a.push(Employee());
+  ref<Employee> b = a[2];
   a.clear();
 #endif
 
 #ifdef TEST_VEC_DANGLE_2
-  vec<int> a;
-  a.push(9);
-  a.push(8);
-  a.push(7);
-  ref<int> b = a[2];
-  a = vec<int>();
+  vec<val<Employee> > a;
+  a.push(Employee());
+  a.push(Employee());
+  a.push(Employee());
+  ref<Employee> b = a[2];
+  a = vec<val<Employee> >();
 #endif
 
-//#ifdef TEST_VEC_BOX
+#ifdef TEST_VEC_BOX
   vec<box<Employee> > a;
   a.push(box<Employee>::make());
   //a[0]->vec_sink(a);
@@ -69,5 +74,4 @@
   val<Employee> f;
   ref<Employee> g = f;
   g->id = 7;
-
-//#endif
+#endif

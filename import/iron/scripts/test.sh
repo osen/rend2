@@ -28,6 +28,7 @@ run()
   exec_success BOX_IMPLICIT_CAST
   exec_fail BOX_MOVE_REF_DANGLING
   exec_fail BOX_TAKEN
+  exec_fail BOX_DANGLING_THIS
   compile_fail BOX_ASSIGN_CONST_1
   compile_fail BOX_ASSIGN_CONST_2
   compile_fail BOX_ASSIGN_CONST_3
@@ -42,11 +43,10 @@ run()
   exec_success VEC_PUSH
   exec_success VEC_REF
   exec_success VEC_COPY
+  exec_fail VEC_OOB
   exec_fail VEC_DANGLE_1
   exec_fail VEC_DANGLE_2
-
   exec_success ENABLE_REF
-
   exec_success FILE
 }
 

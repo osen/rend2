@@ -111,3 +111,9 @@
   box<Employee> a = box<Manager>::make();
   box<Manager> b = a;
 #endif
+
+#ifdef TEST_BOX_DANGLING_THIS
+  box<Employee> a = box<Manager>::make();
+  a->box_sink(a);
+#endif
+
