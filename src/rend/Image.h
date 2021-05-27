@@ -1,3 +1,5 @@
+#include "sys.h"
+
 #include <SDL2/SDL.h>
 #include <GL/gl.h>
 
@@ -12,7 +14,7 @@ struct Image
   ~Image();
 
 private:
-  ref<SDL_GLContext> context;
+  ref<SysContext> context;
   unique<GLuint> id;
 
 };

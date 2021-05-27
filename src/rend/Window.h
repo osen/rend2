@@ -1,3 +1,5 @@
+#include "sys.h"
+
 #include <SDL2/SDL.h>
 
 #include <iron>
@@ -14,13 +16,14 @@ struct Window : enable_ref
 
   void start();
   void stop();
-  ref<SDL_GLContext> getContext();
+  ref<SysContext> getContext();
 
 private:
   static ref<Window> instance;
 
-  unique<SDL_Window *> window;
-  unique<SDL_GLContext> context;
+  box<SysSdl> sdl;
+  box<SysWindow> window;
+  box<SysContext> context;
   unique<bool> quit;
 
   virtual void onTick();

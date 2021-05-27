@@ -35,6 +35,18 @@ struct box
     return rtn;
   }
 
+  template <typename U>
+  static box make(U &u)
+  {
+    box rtn;
+
+    rtn.mut.raw = new T(u);
+    rtn.mut.deleter = deleter;
+    rtn.mut.count = new int();
+
+    return rtn;
+  }
+
   bool valid() const
   {
     return mut.raw;

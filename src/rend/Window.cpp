@@ -17,24 +17,9 @@ Window::Window()
     panic("Only one window instance allowed");
   }
 
-  SDL_Init(SDL_INIT_EVERYTHING);
-
-  window = SDL_CreateWindow("Rend",
-    SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-    800, 600,
-    SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
-
-  if(!window)
-  {
-    panic("Failed to create window");
-  }
-
-  context = SDL_GL_CreateContext(window);
-
-  if(!context)
-  {
-    panic("Failed to create OpenGL context");
-  }
+  sdl = box<SysSdl>::make();
+  window = box<SysWindow>::make(sdl);
+  context = box<SysContext>::make(window);
 
   instance = ref<Window>::bind(this);
 }
@@ -42,12 +27,9 @@ Window::Window()
 Window::~Window()
 {
   instance.reset();
-  SDL_GL_DeleteContext(context);
-  SDL_DestroyWindow(window);
-  SDL_Quit();
 }
 
-ref<SDL_GLContext> Window::getContext()
+ref<SysContext> Window::getContext()
 {
   return context;
 }
