@@ -11,6 +11,8 @@ run()
   exec_success VAL_RAW_PTR
   exec_success VAL_DEREFERENCE
   exec_success VAL_COPY_INITIALIZATION
+  exec_success VAL_INCREMENT
+  exec_success VAL_REF_INCREMENT
   compile_fail VAL_INVALID_PTR
   compile_fail VAL_CONST_ASSIGN_1
   compile_fail VAL_CONST_ASSIGN_2

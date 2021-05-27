@@ -26,6 +26,14 @@
   ref<Employee> b = ref<Employee>::bind(a[2]);
 #endif
 
+#ifdef TEST_EXPERIMENTAL_VEC_REF_IMPLICIT
+  vec<Employee> a;
+  a.push(Employee());
+  a.push(Employee());
+  a.push(Employee());
+  ref<Employee> b = a[2];
+#endif
+
 #ifdef TEST_VEC_COPY
   vec<int> a;
   a.push(9);

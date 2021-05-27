@@ -72,11 +72,11 @@ struct ref
   /*
    * T
    */
-  //ref(const T &value); // : mut() { *get() = value; }
+  //ref(T &value) : mut(&value, &value.mut.count) { (*mut.count)++; }
   ref &operator=(const T &value) { *get() = value; return *this; }
 
   //template <typename U>
-  //ref(const U &value); // : mut() { *get() = value; }
+  //ref(U &value) : mut(&value, &value.mut.count) { (*mut.count)++; }
   template <typename U>
   ref &operator=(const U &value) { *get() = value; return *this; }
 
@@ -108,6 +108,7 @@ private:
     int *count;
 
     Mut() : raw(), count() { }
+    Mut(T *const &raw, int *const &count) : raw(raw), count(count) { }
   } mut;
 
   T *const &get() const

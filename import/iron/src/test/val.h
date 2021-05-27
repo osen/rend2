@@ -111,3 +111,18 @@
   unique<int> b = 9;
 #endif
 
+#ifdef TEST_VAL_INCREMENT
+  val<int> a = 8;
+  a++;
+  if(a != 9) panic("Invalid result");
+#endif
+
+#ifdef TEST_VAL_REF_INCREMENT
+  val<int> a = 8;
+  ref<int> b = a;
+  b++;
+  a++;
+  if(a != 10) panic("Invalid result");
+  if(b != 10) panic("Invalid result");
+#endif
+
