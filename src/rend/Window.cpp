@@ -21,7 +21,7 @@ Window::Window()
   window = box<SysWindow>::make(sdl);
   context = box<SysContext>::make(window);
 
-  instance = ref<Window>::bind(this);
+  instance.bind(this);
 }
 
 Window::~Window()

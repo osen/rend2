@@ -9,76 +9,72 @@ struct ref
    */
   ref() : mut() { }
   ref(const ref &copy) : mut() { reset(copy.mut.raw, copy.mut.count); }
-  ref &operator=(const ref &other) { reset(other.mut.raw, other.mut.count); return *this; }
+  ref &operator=(const ref &other) { *get() = other; return *this; }
   ~ref() { reset(); }
-
-  /*
-   * enable_ref
-   */
-  static ref<T> bind(T *raw)
-  {
-    ref<T> rtn;
-
-    rtn.mut.count = &raw->mut.count;
-    rtn.mut.raw = raw;
-    (*rtn.mut.count)++;
-
-    return rtn;
-  }
-
-  static ref<T> bind(T &raw)
-  {
-    return bind(&raw);
-  }
+  void bind(const ref &other) { reset(other.mut.raw, other.mut.count); }
 
   template <typename U>
   ref(const ref<U> &other) : mut() { reset(other.mut.raw, other.mut.count); }
   template <typename U>
-  ref &operator=(const ref<U> &other) { reset(other.mut.raw, other.mut.count); return *this; }
+  ref &operator=(const ref<U> &other) { *get() = other; return *this; }
+  template <typename U>
+  void bind(const ref<U> &other) { reset(other.mut.raw, other.mut.count); }
 
   /*
    * val
    */
   ref(const val<T> &value) : mut() { reset(&value.mut.raw, &value.mut.count); }
-  ref &operator=(const val<T> &value) { reset(&value.mut.raw, &value.mut.count); return *this; }
+  ref &operator=(const val<T> &other) { *get() = other; return *this; }
+  void bind(const val<T> &value) { reset(&value.mut.raw, &value.mut.count); }
 
   template <typename U>
   ref(const val<U> &value) : mut() { reset(&value.mut.raw, &value.mut.count); }
   template <typename U>
-  ref &operator=(const val<U> &value) { reset(&value.mut.raw, &value.mut.count); return *this; }
+  ref &operator=(const val<U> &other) { *get() = other; return *this; }
+  template <typename U>
+  void bind(const val<U> &value) { reset(&value.mut.raw, &value.mut.count); }
 
   /*
    * unique
    */
   ref(const unique<T> &other) : mut() { reset(&other.mut.raw, &other.mut.count); }
-  ref &operator=(const unique<T> &other) { reset(&other.mut.raw, &other.mut.count); return *this; }
+  ref &operator=(const unique<T> &other) { *get() = other; return *this; }
+  void bind(const unique<T> &other) { reset(&other.mut.raw, &other.mut.count); }
 
   template <typename U>
   ref(const unique<U> &other) : mut() { reset(&other.mut.raw, &other.mut.count); }
   template <typename U>
-  ref &operator=(const unique<U> &other) { reset(&other.mut.raw, &other.mut.count); return *this; }
+  ref &operator=(const unique<U> &other) { *get() = other; return *this; }
+  template <typename U>
+  void bind(const unique<U> &other) { reset(&other.mut.raw, &other.mut.count); }
 
   /*
    * box
    */
   ref(const box<T> &value) : mut() { reset(value.mut.raw, value.mut.count); }
-  ref &operator=(const box<T> &value) { reset(value.mut.raw, value.mut.count); return *this; }
+  ref &operator=(const box<T> &other) { *get() = other; return *this; }
+  void bind(const box<T> &value) { reset(value.mut.raw, value.mut.count); }
 
   template <typename U>
   ref(const box<U> &value) : mut() { reset(value.mut.raw, value.mut.count); }
   template <typename U>
-  ref &operator=(const box<U> &value) { reset(value.mut.raw, value.mut.count); return *this; }
+  ref &operator=(const box<U> &other) { *get() = other; return *this; }
+  template <typename U>
+  void bind(const box<U> &value) { reset(value.mut.raw, value.mut.count); }
 
   /*
    * T
    */
-  //ref(T &value) : mut(&value, &value.mut.count) { (*mut.count)++; }
-  ref &operator=(const T &value) { *get() = value; return *this; }
+  ref(T *const &value) : mut(value, &value->mut.count) { (*mut.count)++; }
+  void bind(T *const &value) { reset(value, &value->mut.count); }
+  ref &operator=(T const &value) { *get() = value; return *this; }
 
-  //template <typename U>
-  //ref(U &value) : mut(&value, &value.mut.count) { (*mut.count)++; }
   template <typename U>
-  ref &operator=(const U &value) { *get() = value; return *this; }
+  ref(U *const &value) : mut(value, &value->mut.count) { (*mut.count)++; }
+  template <typename U>
+  void bind(U *const &value) { reset(value, &value->mut.count); }
+  template <typename U>
+  ref &operator=(U const &value) { *get() = value; return *this; }
 
   /*
    * operators

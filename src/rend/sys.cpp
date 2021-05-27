@@ -18,7 +18,7 @@ SysSdl::~SysSdl()
 SysWindow::SysWindow(ref<SysSdl> sdl)
 {
   printf("SDL_CreateWindow\n");
-  this->sdl = sdl;
+  this->sdl.bind(sdl);
 
   sys = SDL_CreateWindow("SDL_Window",
     SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
@@ -40,7 +40,7 @@ SysWindow::~SysWindow()
 SysContext::SysContext(ref<SysWindow> window)
 {
   printf("SDL_GL_CreateContext\n");
-  this->window = window;
+  this->window.bind(window);
   sys = SDL_GL_CreateContext(window->sys);
 
   if(!sys)

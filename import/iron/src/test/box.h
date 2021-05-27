@@ -83,14 +83,14 @@
 #ifdef TEST_BOX_MOVE_REF
   box<int> dat = box<int>::make();
   box<int> dat2;
-  ref<int> d = dat;
+  ref<int> d(dat);
   dat2 = dat;
   d = 9;
 #endif
 
 #ifdef TEST_BOX_MOVE_REF_DANGLING
   box<int> dat = box<int>::make();
-  ref<int> d = dat;
+  ref<int> d(dat);
   box<int> dat2;
   dat2 = dat;
 #endif

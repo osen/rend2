@@ -23,7 +23,7 @@
   a.push(Employee());
   a.push(Employee());
   a.push(Employee());
-  ref<Employee> b = ref<Employee>::bind(a[2]);
+  ref<Employee> b(&a[2]);
 #endif
 
 #ifdef TEST_EXPERIMENTAL_VEC_REF_IMPLICIT
@@ -31,7 +31,7 @@
   a.push(Employee());
   a.push(Employee());
   a.push(Employee());
-  ref<Employee> b = a[2];
+  ref<Employee> b(&a[2]);
 #endif
 
 #ifdef TEST_VEC_COPY
@@ -50,7 +50,7 @@
   a.push(Employee());
   a.push(Employee());
   a.push(Employee());
-  ref<Employee> b = a[2];
+  ref<Employee> b(a[2]);
   a.clear();
 #endif
 
@@ -59,7 +59,7 @@
   a.push(Employee());
   a.push(Employee());
   a.push(Employee());
-  ref<Employee> b = a[2];
+  ref<Employee> b(a[2]);
   a = vec<val<Employee> >();
 #endif
 
@@ -75,11 +75,11 @@
   a[0]->id = 9;
   a[0]->id = 9;
 
-  ref<Employee> b = a[0];
+  ref<Employee> b(a[0]);
   b->id = 9;
   //b->vec_sink(a);
 
   val<Employee> f;
-  ref<Employee> g = f;
+  ref<Employee> g(f);
   g->id = 7;
 #endif
