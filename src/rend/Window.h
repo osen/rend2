@@ -7,6 +7,8 @@
 namespace rend
 {
 
+struct Context;
+
 struct Window : enable_ref
 {
   static ref<Window> getInstance();
@@ -16,14 +18,16 @@ struct Window : enable_ref
 
   void start();
   void stop();
-  ref<SysContext> getContext();
+  ref<Context> getContext();
+  ref<SysWindow> getSys();
 
 private:
   static ref<Window> instance;
 
   box<SysSdl> sdl;
-  box<SysWindow> window;
-  box<SysContext> context;
+  box<SysWindow> sys;
+
+  box<Context> context;
   unique<bool> quit;
 
   virtual void onTick();

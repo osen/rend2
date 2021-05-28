@@ -1,9 +1,18 @@
 #include <rend/rend.h>
 
+struct SampleWindow : Window
+{
+  Image image;
+
+  void onTick()
+  {
+
+  }
+};
+
 int main()
 {
-  Window window;
-  Image image;
+  SampleWindow window;
 
 /*
   KeyInfo ki = Keyboard::queryKey(KEY_D);

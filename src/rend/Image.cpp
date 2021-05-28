@@ -1,23 +1,18 @@
 #include "Image.h"
 #include "Window.h"
+#include "Context.h"
 
 namespace rend
 {
 
 Image::Image()
 {
-  context.bind(Window::getInstance()->getContext());
-  glGenTextures(1, &id);
-
-  if(!id)
-  {
-    panic("Failed to create texture");
-  }
+  sys = box<SysTexture>::make(Window::getInstance()->getContext()->getSys());
 }
 
 Image::~Image()
 {
-  glDeleteTextures(1, &id);
+
 }
 
 }

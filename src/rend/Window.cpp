@@ -1,4 +1,7 @@
 #include "Window.h"
+#include "Context.h"
+
+#include <GL/glew.h>
 
 namespace rend
 {
@@ -18,8 +21,8 @@ Window::Window()
   }
 
   sdl = box<SysSdl>::make();
-  window = box<SysWindow>::make(sdl);
-  context = box<SysContext>::make(window);
+  sys = box<SysWindow>::make(sdl);
+  context = box<Context>::make(this);
 
   instance.bind(this);
 }
@@ -29,9 +32,14 @@ Window::~Window()
   instance.reset();
 }
 
-ref<SysContext> Window::getContext()
+ref<Context> Window::getContext()
 {
   return context;
+}
+
+ref<SysWindow> Window::getSys()
+{
+  return sys;
 }
 
 void Window::start()
@@ -49,10 +57,16 @@ void Window::start()
         quit = true;
       }
     }
-  }
 
-  onTick();
-  onDisplay();
+    onTick();
+
+    glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    onDisplay();
+
+    SDL_GL_SwapWindow(sys->sys);
+  }
 }
 
 void Window::stop()

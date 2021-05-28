@@ -14,8 +14,7 @@ struct Image
   ~Image();
 
 private:
-  ref<SysContext> context;
-  unique<GLuint> id;
+  box<SysTexture> sys;
 
 };
 
