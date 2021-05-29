@@ -24,7 +24,6 @@ struct Window : enable_ref
 private:
   static ref<Window> instance;
 
-  box<SysSdl> sdl;
   box<SysWindow> sys;
 
   box<Context> context;

@@ -20,8 +20,7 @@ Window::Window()
     panic("Only one window instance allowed");
   }
 
-  sdl = box<SysSdl>::make();
-  sys = box<SysWindow>::make(sdl);
+  sys = box<SysWindow>::make();
   context = box<Context>::make(this);
 
   instance.bind(this);

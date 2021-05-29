@@ -6,20 +6,27 @@
 namespace rend
 {
 
+unique<int> SysSdl::count;
+
 SysSdl::SysSdl()
 {
+  if(count) return;
   LOG("SDL_Init");
   SDL_Init(SDL_INIT_EVERYTHING);
+  count++;
 }
 
 SysSdl::~SysSdl()
 {
+  count--;
+  if(count) return;
   LOG("SDL_Quit");
   SDL_Quit();
 }
 
-SysWindow::SysWindow(ref<SysSdl> sdl) : sdl(sdl)
+SysWindow::SysWindow()
 {
+  sdl = box<SysSdl>::make();
   LOG("SDL_CreateWindow");
 
   sys = SDL_CreateWindow("SDL_Window",

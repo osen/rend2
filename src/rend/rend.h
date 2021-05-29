@@ -3,6 +3,11 @@
 
 #include "Window.h"
 #include "Image.h"
+#include "Context.h"
+#include "Mesh.h"
+
+#include "Vertex.h"
+#include "Face.h"
 
 using namespace rend;
 

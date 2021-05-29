@@ -13,14 +13,16 @@ struct SysSdl
 {
   SysSdl();
   ~SysSdl();
+
+  static unique<int> count;
 };
 
 struct SysWindow
 {
-  SysWindow(ref<SysSdl> sdl);
+  SysWindow();
   ~SysWindow();
 
-  ref<SysSdl> sdl;
+  box<SysSdl> sdl;
   unique<SDL_Window *> sys;
 };
 
