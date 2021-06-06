@@ -1,10 +1,9 @@
-#include "sys.h"
-
 #include <iron>
 
 namespace rend
 {
 
+struct SysContext;
 struct Window;
 struct Mesh;
 

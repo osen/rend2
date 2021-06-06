@@ -1,6 +1,3 @@
-#ifndef REND_SYS_H
-#define REND_SYS_H
-
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 
@@ -148,6 +145,4 @@ struct SysBuffer
 };
 
 }
-
-#endif
 

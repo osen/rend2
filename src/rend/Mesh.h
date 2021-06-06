@@ -1,4 +1,3 @@
-#include "sys.h"
 #include "Face.h"
 
 #include <iron>
@@ -6,6 +5,7 @@
 namespace rend
 {
 
+struct SysBuffer;
 struct Context;
 
 struct Mesh

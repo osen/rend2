@@ -1,5 +1,3 @@
-#include "sys.h"
-
 #include <SDL2/SDL.h>
 
 #include <iron>
@@ -8,6 +6,7 @@ namespace rend
 {
 
 struct Context;
+struct SysWindow;
 
 struct Window : enable_ref
 {
