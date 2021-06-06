@@ -9,7 +9,6 @@ add_library(rend
   src/rend/Window.cpp
   src/rend/Image.cpp
   src/rend/Context.cpp
-  src/rend/sys.cpp
 )
 target_link_libraries(rend SDL2 GL GLEW)
 
