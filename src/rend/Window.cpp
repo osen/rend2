@@ -9,10 +9,10 @@ namespace rend
 
 ref<Window> Window::instance;
 
-ref<Window> Window::getInstance()
-{
-  return instance;
-}
+//ref<Window> Window::getInstance()
+//{
+//  return instance;
+//}
 
 Window::Window()
 {

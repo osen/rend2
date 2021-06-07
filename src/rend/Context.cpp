@@ -1,6 +1,7 @@
 #include "Context.h"
 #include "Window.h"
 #include "Mesh.h"
+#include "Image.h"
 #include "sys.h"
 
 namespace rend
@@ -20,6 +21,14 @@ box<Mesh> Context::createMesh()
 {
   box<Mesh> rtn = box<Mesh>::make();
   rtn->context.bind(this);
+
+  return rtn;
+}
+
+box<Image> Context::createImage()
+{
+  box<Image> rtn = box<Image>::make(this);
+  //rtn->context.bind(this);
 
   return rtn;
 }

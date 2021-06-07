@@ -10,7 +10,7 @@ struct SysWindow;
 
 struct Window : enable_ref
 {
-  static ref<Window> getInstance();
+  //static ref<Window> getInstance();
 
   Window();
   ~Window();

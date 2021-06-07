@@ -2,7 +2,13 @@
 
 struct SampleWindow : Window
 {
-  Image image;
+  box<Image> image;
+
+  SampleWindow()
+  {
+    //image = getContext()->createImage();
+    getContext()->createImage();
+  }
 
   void onTick()
   {
@@ -13,6 +19,11 @@ struct SampleWindow : Window
 int main()
 {
   SampleWindow window;
+  ref<Context> context(window.getContext());
+
+  val<vec<int> > ints;
+  ints->push(8);
+  ref<vec<int> > refInts = ints;
 
 /*
   KeyInfo ki = Keyboard::queryKey(KEY_D);

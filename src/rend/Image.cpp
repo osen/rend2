@@ -1,19 +1,13 @@
 #include "Image.h"
-#include "Window.h"
 #include "Context.h"
 #include "sys.h"
 
 namespace rend
 {
 
-Image::Image()
+Image::Image(ref<Context> context) : context(context)
 {
-  sys = box<SysTexture>::make(Window::getInstance()->getContext()->getSys());
-}
-
-Image::~Image()
-{
-
+  sys = box<SysTexture>::make(context->getSys());
 }
 
 }

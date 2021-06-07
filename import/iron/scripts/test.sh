@@ -1,4 +1,5 @@
 CXX=c++
+#CXX="g++ -fno-elide-constructors"
 
 run()
 {
