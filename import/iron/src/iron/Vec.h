@@ -31,14 +31,6 @@ struct vec
 
   size_t size() const { return curr; }
 
-  void check() const
-  {
-    if(count > 0)
-    {
-      panic("Attempt to modify vector during access");
-    }
-  }
-
   void push(T const &value)
   {
     check();
@@ -78,6 +70,14 @@ private:
   size_t max;
   T *data;
   mutable int count;
+
+  void check() const
+  {
+    if(count > 0)
+    {
+      panic("Attempt to modify vector during access");
+    }
+  }
 
   void wipe()
   {

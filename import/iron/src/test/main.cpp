@@ -36,6 +36,7 @@ int main()
 #include "val.h"
 #include "box.h"
 #include "vec.h"
+#include "arr.h"
 #include "file.h"
 #include "enable_ref.h"
 
