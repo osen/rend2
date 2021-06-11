@@ -1,3 +1,6 @@
+namespace iron
+{
+
 template <typename T>
 struct ref;
 
@@ -66,4 +69,6 @@ private:
   }
 
 };
+
+}
 

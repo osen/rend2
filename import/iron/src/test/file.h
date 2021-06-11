@@ -14,7 +14,7 @@ while(!f.eof())
 {
   char c = f.readChar();
 
-  printf("%c", c);
+  //printf("%c", c);
 }
 
 #endif

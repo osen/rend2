@@ -1,11 +1,17 @@
 #include <new>
 
+namespace iron
+{
+
 template <typename T>
 struct vec;
 
+template <typename T, size_t S>
+struct array;
+
 struct vec_idx
 {
-  vec_idx(const size_t &value) : value(value), count() { }
+  vec_idx(size_t const &value) : value(value), count() { }
   ~vec_idx() { (*count)--; }
 
   operator size_t const &() const { return value; }
@@ -13,6 +19,9 @@ struct vec_idx
 private:
   template <typename T>
   friend struct vec;
+
+  template <typename T, size_t S>
+  friend struct array;
 
   size_t value;
   mutable int *count;
@@ -139,4 +148,6 @@ private:
     curr = copy.curr;
   }
 };
+
+}
 

@@ -1,3 +1,6 @@
+namespace iron
+{
+
 template <typename T>
 struct ref;
 
@@ -27,4 +30,6 @@ private:
     Mut() : count() { }
   } mut;
 };
+
+}
 

@@ -1,3 +1,6 @@
+namespace iron
+{
+
 template <typename T>
 struct ref;
 
@@ -133,4 +136,6 @@ private:
 
 //template <typename T>
 //ref<T> box<T>::operator->() const { return *this; }
+
+}
 

@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+namespace iron
+{
+
 template <typename T>
 void _panic(const char *message)
 {
@@ -10,3 +13,6 @@ void _panic(const char *message)
 }
 
 #define panic _panic<int>
+
+}
+

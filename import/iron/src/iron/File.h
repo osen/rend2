@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+namespace iron
+{
+
 struct freader
 {
   freader() { }
@@ -72,3 +75,6 @@ private:
   box<FILE *> fp;
 
 };
+
+}
+

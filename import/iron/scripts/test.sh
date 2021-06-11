@@ -51,6 +51,9 @@ run()
   exec_fail VEC_DANGLE_2
   exec_success ENABLE_REF
   exec_success FILE
+
+  exec_success ARR
+  exec_fail ARR_OOB
 }
 
 exec_success()
