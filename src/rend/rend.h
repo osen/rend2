@@ -9,6 +9,8 @@
 #include "Vertex.h"
 #include "Face.h"
 
+#include "mathutil.h"
+
 using namespace rend;
 
 #endif
