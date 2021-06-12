@@ -14,6 +14,7 @@ all:
 	cat src/iron/EnableRef.h >> include/iron
 	cat src/iron/Vec.h >> include/iron
 	cat src/iron/Array.h >> include/iron
+	cat src/iron/String.h >> include/iron
 	cat src/iron/File.h >> include/iron
 	cat src/iron/tail.h >> include/iron
 

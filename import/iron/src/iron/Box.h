@@ -10,20 +10,28 @@ struct box
   /*
    * box
    */
-  box() : mut() { }
-  box(const box &copy) : mut(copy.mut.raw, copy.mut.deleter, copy.mut.count) { copy.release(); }
-  box &operator=(const box &other) { if(&other != this) { reset(); mut = Mut(other.mut.raw, other.mut.deleter, other.mut.count); other.release(); } return *this; }
+  box() : m_raw(), m_deleter(), m_count() { }
   ~box() { reset(); }
 
+  box(box const &copy) : m_raw(copy.m_raw), m_deleter(copy.m_deleter),
+    m_count(copy.m_count) { copy.release(); }
+
+  box &operator=(box const &other) { if(&other != this) { reset();
+    m_raw = other.m_raw; m_deleter = other.m_deleter; m_count = other.m_count;
+    other.release(); } return *this; }
+
   template <typename U>
-  box(const box<U> &other) : mut(other.mut.raw, other.mut.deleter, other.mut.count) { other.release(); }
+  box(box<U> const &other) : m_raw(other.m_raw), m_deleter(other.m_deleter),
+    m_count(other.m_count) { other.release(); }
+
   template <typename U>
-  box &operator=(const box<U> &other) { if((void *)&other != (void *)this) { reset(); mut = Mut(other.mut.raw, other.mut.deleter, other.mut.count); other.release(); } return *this; }
+  box &operator=(box<U> const &other) { if(other.m_raw != this->m_raw) { reset();
+    m_raw = other.m_raw; m_deleter = other.m_deleter; m_count = other.m_count;
+    other.release(); } return *this; }
 
   /*
    * operators
    */
-  //T *operator->() const { return get(); }
   ref<T> operator->() const;
   operator T *() const { return get(); }
 
@@ -31,9 +39,9 @@ struct box
   {
     box rtn;
 
-    rtn.mut.raw = new T();
-    rtn.mut.deleter = deleter;
-    rtn.mut.count = new int();
+    rtn.m_raw = new T();
+    rtn.m_deleter = deleter;
+    rtn.m_count = new int();
 
     return rtn;
   }
@@ -43,9 +51,9 @@ struct box
   {
     box rtn;
 
-    rtn.mut.raw = new T(u);
-    rtn.mut.deleter = deleter;
-    rtn.mut.count = new int();
+    rtn.m_raw = new T(u);
+    rtn.m_deleter = deleter;
+    rtn.m_count = new int();
 
     return rtn;
   }
@@ -55,40 +63,40 @@ struct box
   {
     box rtn;
 
-    rtn.mut.raw = new T(u);
-    rtn.mut.deleter = deleter;
-    rtn.mut.count = new int();
+    rtn.m_raw = new T(u);
+    rtn.m_deleter = deleter;
+    rtn.m_count = new int();
 
     return rtn;
   }
 
   bool valid() const
   {
-    return mut.raw;
+    return m_raw;
   }
 
   T *get() const
   {
-    if(!mut.raw)
+    if(!m_raw)
     {
       panic("Accessing NULL pointer");
     }
 
-    return mut.raw;
+    return m_raw;
   }
 
   void reset() const
   {
     check();
 
-    if(mut.deleter && mut.raw)
+    if(m_deleter && m_raw)
     {
-      mut.deleter((void *)mut.raw);
+      m_deleter((void *)m_raw);
     }
 
-    if(mut.count)
+    if(m_count)
     {
-      delete mut.count;
+      delete m_count;
     }
 
     release();
@@ -101,15 +109,9 @@ private:
   template <typename U>
   friend struct box;
 
-  mutable struct Mut
-  {
-    T *raw;
-    void (*deleter)(void *);
-    int *count;
-
-    Mut() : raw(), deleter(), count() { }
-    Mut(T *const &raw, void (*const &deleter)(void *), int *const &count) : raw(raw), deleter(deleter), count(count) { }
-  } mut;
+  T mutable *m_raw;
+  mutable void (*m_deleter)(void *);
+  int mutable *m_count;
 
   static void deleter(void *ptr)
   {
@@ -119,7 +121,7 @@ private:
 
   void check() const
   {
-    if(mut.count && *mut.count)
+    if(m_count && *m_count)
     {
       panic("Dangling references remain");
     }
@@ -127,9 +129,9 @@ private:
 
   void release() const
   {
-    mut.raw = NULL;
-    mut.deleter = NULL;
-    mut.count = NULL;
+    m_raw = NULL;
+    m_deleter = NULL;
+    m_count = NULL;
   }
 
 };

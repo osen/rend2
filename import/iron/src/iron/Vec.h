@@ -49,6 +49,20 @@ struct vec
     ++curr;
   }
 
+  void resize(size_t newSize)
+  {
+    check();
+
+    fit(newSize);
+
+    for(size_t i = curr; i < newSize; i++)
+    {
+      new(&data[i]) T();
+    }
+
+    curr = newSize;
+  }
+
   T &operator[](vec_idx const &idx) const
   { 
     count++;

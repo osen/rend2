@@ -54,16 +54,16 @@ struct ref
   /*
    * box
    */
-  ref(const box<T> &value) : mut(value.mut.raw, value.mut.count) { if(mut.count) (*mut.count)++; }
+  ref(const box<T> &value) : mut(value.m_raw, value.m_count) { if(mut.count) (*mut.count)++; }
   ref &operator=(const box<T> &other) { *get() = other; return *this; }
-  void bind(const box<T> &value) { reset(value.mut.raw, value.mut.count); }
+  void bind(const box<T> &value) { reset(value.m_raw, value.m_count); }
 
   template <typename U>
-  ref(const box<U> &value) : mut(value.mut.raw, value.mut.count) { if(mut.count) (*mut.count)++; }
+  ref(const box<U> &value) : mut(value.m_raw, value.m_count) { if(mut.count) (*mut.count)++; }
   template <typename U>
   ref &operator=(const box<U> &other) { *get() = other; return *this; }
   template <typename U>
-  void bind(const box<U> &value) { reset(value.mut.raw, value.mut.count); }
+  void bind(const box<U> &value) { reset(value.m_raw, value.m_count); }
 
   /*
    * T : enable_ref

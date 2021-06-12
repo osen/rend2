@@ -54,6 +54,17 @@ run()
 
   exec_success ARR
   exec_fail ARR_OOB
+
+  exec_success STRING
+  exec_success STRING_COPY_1
+  exec_success STRING_COPY_2
+  exec_success STRING_ASSIGN_1
+  exec_success STRING_ASSIGN_2
+  exec_success STRING_APPEND_1
+  exec_success STRING_APPEND_2
+  exec_fail STRING_APPEND_OOB
+  exec_fail STRING_OOB
+  exec_fail STRING_COPY_OOB
 }
 
 exec_success()
