@@ -22,7 +22,7 @@ struct string
     // Don't need a null char at end because should be 0
   }
 
-  char &operator[](size_t idx) const
+  char &operator[](vec_idx const &idx) const
   {
     if(idx + 1 >= m_data.size())
     {

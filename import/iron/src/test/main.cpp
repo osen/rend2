@@ -30,6 +30,8 @@ struct Manager : public Employee
   }
 };
 
+#include "misc.h"
+
 int main()
 {
 
@@ -40,6 +42,8 @@ int main()
 #include "string.h"
 #include "file.h"
 #include "enable_ref.h"
+
+  run_misc();
 
   return 0;
 }
