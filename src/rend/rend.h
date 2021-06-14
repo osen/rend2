@@ -5,6 +5,7 @@
 #include "Image.h"
 #include "Context.h"
 #include "Mesh.h"
+#include "UiShader.h"
 
 #include "Vertex.h"
 #include "Face.h"

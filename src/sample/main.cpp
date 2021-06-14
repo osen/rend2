@@ -29,6 +29,7 @@ int main()
   KeyInfo ki = Keyboard::queryKey(KEY_D);
  */
 
+  ref<UiShader> ui = window.getContext()->getUiShader();
   box<Mesh> m = window.getContext()->createMesh();
   //val<Face> f;
   //m->addFace(f);

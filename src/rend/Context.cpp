@@ -36,5 +36,10 @@ box<Image> Context::createImage()
   return rtn;
 }
 
+ref<UiShader> Context::getUiShader()
+{
+  return uiShader;
+}
+
 }
 
