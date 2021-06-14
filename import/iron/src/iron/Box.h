@@ -70,6 +70,31 @@ struct box
     return rtn;
   }
 
+  template <typename U, typename V>
+  static box make(U &u, V &v)
+  {
+    box rtn;
+
+    rtn.m_raw = new T(u, v);
+    rtn.m_deleter = deleter;
+    rtn.m_count = new int();
+
+    return rtn;
+  }
+
+  template <typename U, typename V>
+  static box make(U const &u, V const &v)
+  {
+    box rtn;
+
+    rtn.m_raw = new T(u, v);
+    rtn.m_deleter = deleter;
+    rtn.m_count = new int();
+
+    return rtn;
+  }
+
+
   bool valid() const
   {
     return m_raw;

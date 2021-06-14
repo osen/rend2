@@ -144,5 +144,59 @@ struct SysBuffer
   unique<GLuint> sys;
 };
 
+struct SysShader
+{
+  SysShader(ref<SysContext> context, bool isFragment) : context(context)
+  {
+    SYS_LOG("glCreateShader");
+
+    if(isFragment)
+    {
+      sys = glCreateShader(GL_FRAGMENT_SHADER);
+    }
+    else
+    {
+      sys = glCreateShader(GL_VERTEX_SHADER);
+    }
+
+    if(!sys)
+    {
+      panic("Failed to create shader");
+    }
+  }
+
+  ~SysShader()
+  {
+    SYS_LOG("glDeleteShader");
+    glDeleteShader(sys);
+  }
+
+  ref<SysContext> context;
+  unique<GLuint> sys;
+};
+
+struct SysProgram
+{
+  SysProgram(ref<SysContext> context) : context(context)
+  {
+    SYS_LOG("glCreateProgram");
+    sys = glCreateProgram();
+
+    if(!sys)
+    {
+      panic("Failed to create program");
+    }
+  }
+
+  ~SysProgram()
+  {
+    SYS_LOG("glDeleteProgram");
+    glDeleteProgram(sys);
+  }
+
+  ref<SysContext> context;
+  unique<GLuint> sys;
+};
+
 }
 

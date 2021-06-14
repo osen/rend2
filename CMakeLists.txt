@@ -10,6 +10,8 @@ add_library(rend
   src/rend/Image.cpp
   src/rend/Context.cpp
   src/rend/mathutil.cpp
+  src/rend/Shader.cpp
+  src/rend/UiShader.cpp
 )
 target_link_libraries(rend SDL2 GL GLEW)
 

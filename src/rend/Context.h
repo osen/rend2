@@ -7,6 +7,9 @@ struct SysContext;
 struct Window;
 struct Mesh;
 struct Image;
+struct UiShader;
+struct BasicShader;
+struct LightShader;
 
 struct Context : enable_ref
 {
@@ -15,9 +18,13 @@ struct Context : enable_ref
   ref<SysContext> getSys();
   box<Mesh> createMesh();
   box<Image> createImage();
+  ref<UiShader> getUiShader();
+  ref<BasicShader> getBasicShader();
+  ref<LightShader> getLightShader();
 
 private:
   box<SysContext> sys;
+  box<UiShader> uiShader;
 
 };
 

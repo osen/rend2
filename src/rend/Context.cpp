@@ -3,6 +3,7 @@
 #include "Mesh.h"
 #include "Image.h"
 #include "sys.h"
+#include "UiShader.h"
 
 namespace rend
 {
@@ -10,6 +11,8 @@ namespace rend
 Context::Context(ref<Window> window)
 {
   sys = box<SysContext>::make(window->getSys());
+
+  uiShader = box<UiShader>::make(this);
 }
 
 ref<SysContext> Context::getSys()
