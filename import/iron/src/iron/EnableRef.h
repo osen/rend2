@@ -6,22 +6,22 @@ struct Ref;
 
 struct EnableRef
 {
-  EnableRef() { getTotal()++; }
+  EnableRef() : m_mut() { getTotal()++; }
 
-  EnableRef(EnableRef const &copy) { getTotal()++; }
-  EnableRef &operator=(EnableRef const &other) { return *this; }
+  EnableRef(EnableRef const& copy) : m_mut() { getTotal()++; }
+  EnableRef& operator=(EnableRef const& other) { return *this; }
 
   ~EnableRef()
   {
     getTotal()--;
 
-    if(mut.count > 0)
+    if(m_mut.m_count > 0)
     {
       panic("Dangling reference remains");
     }
   }
 
-  static int &getTotal()
+  static int& getTotal()
   {
     static int rtn = 0;
 
@@ -32,12 +32,10 @@ private:
   template <typename T>
   friend struct Ref;
 
-  mutable struct Mut
+  mutable struct
   {
-    int count;
-
-    Mut() : count() { }
-  } mut;
+    int m_count;
+  } m_mut;
 };
 
 }

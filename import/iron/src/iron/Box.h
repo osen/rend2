@@ -13,27 +13,27 @@ struct Box
   Box() : m_raw(), m_deleter(), m_count() { }
   ~Box() { reset(); }
 
-  Box(Box const &copy) : m_raw(copy.m_raw), m_deleter(copy.m_deleter),
-    m_count(copy.m_count) { copy.release(); }
+  Box(Box const& _copy) : m_raw(_copy.m_raw), m_deleter(_copy.m_deleter),
+    m_count(_copy.m_count) { _copy.release(); }
 
-  Box &operator=(Box const &other) { if(&other != this) { reset();
-    m_raw = other.m_raw; m_deleter = other.m_deleter; m_count = other.m_count;
-    other.release(); } return *this; }
-
-  template <typename U>
-  Box(Box<U> const &other) : m_raw(other.m_raw), m_deleter(other.m_deleter),
-    m_count(other.m_count) { other.release(); }
+  Box &operator=(Box const& _other) { if(&_other != this) { reset();
+    m_raw = _other.m_raw; m_deleter = _other.m_deleter; m_count = _other.m_count;
+    _other.release(); } return *this; }
 
   template <typename U>
-  Box &operator=(Box<U> const &other) { if(other.m_raw != this->m_raw) { reset();
-    m_raw = other.m_raw; m_deleter = other.m_deleter; m_count = other.m_count;
-    other.release(); } return *this; }
+  Box(Box<U> const& _other) : m_raw(_other.m_raw), m_deleter(_other.m_deleter),
+    m_count(_other.m_count) { _other.release(); }
+
+  template <typename U>
+  Box &operator=(Box<U> const& _other) { if(_other.m_raw != this->m_raw) { reset();
+    m_raw = _other.m_raw; m_deleter = _other.m_deleter; m_count = _other.m_count;
+    _other.release(); } return *this; }
 
   /*
    * operators
    */
   Ref<T> operator->() const;
-  operator T *() const { return get(); }
+  operator T*() const { return get(); }
 
   static Box make()
   {
@@ -47,11 +47,11 @@ struct Box
   }
 
   template <typename U>
-  static Box make(U &u)
+  static Box make(U& _u)
   {
     Box rtn;
 
-    rtn.m_raw = new T(u);
+    rtn.m_raw = new T(_u);
     rtn.m_deleter = deleter;
     rtn.m_count = new int();
 
@@ -59,11 +59,11 @@ struct Box
   }
 
   template <typename U>
-  static Box make(U const &u)
+  static Box make(U const& _u)
   {
     Box rtn;
 
-    rtn.m_raw = new T(u);
+    rtn.m_raw = new T(_u);
     rtn.m_deleter = deleter;
     rtn.m_count = new int();
 
@@ -71,11 +71,11 @@ struct Box
   }
 
   template <typename U, typename V>
-  static Box make(U &u, V &v)
+  static Box make(U& _u, V& _v)
   {
     Box rtn;
 
-    rtn.m_raw = new T(u, v);
+    rtn.m_raw = new T(_u, _v);
     rtn.m_deleter = deleter;
     rtn.m_count = new int();
 
@@ -83,24 +83,23 @@ struct Box
   }
 
   template <typename U, typename V>
-  static Box make(U const &u, V const &v)
+  static Box make(U const& _u, V const& _v)
   {
     Box rtn;
 
-    rtn.m_raw = new T(u, v);
+    rtn.m_raw = new T(_u, _v);
     rtn.m_deleter = deleter;
     rtn.m_count = new int();
 
     return rtn;
   }
-
 
   bool valid() const
   {
     return m_raw;
   }
 
-  T *get() const
+  T* get() const
   {
     if(!m_raw)
     {
@@ -116,7 +115,7 @@ struct Box
 
     if(m_deleter && m_raw)
     {
-      m_deleter((void *)m_raw);
+      m_deleter((void*)m_raw);
     }
 
     if(m_count)
@@ -134,13 +133,13 @@ private:
   template <typename U>
   friend struct Box;
 
-  T mutable *m_raw;
-  mutable void (*m_deleter)(void *);
-  int mutable *m_count;
+  mutable T* m_raw;
+  mutable void (*m_deleter)(void*);
+  mutable int* m_count;
 
-  static void deleter(void *ptr)
+  static void deleter(void* _ptr)
   {
-    T *t = (T *)ptr;
+    T* t = (T*)_ptr;
     delete t;
   }
 

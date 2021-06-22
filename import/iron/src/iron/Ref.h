@@ -54,14 +54,14 @@ struct Ref
   /*
    * T : EnableRef
    */
-  Ref(T* const& value) : mut(value, &value->mut.count) { (*mut.count)++; }
-  void bind(T* const& value) { reset(value, &value->mut.count); }
+  Ref(T* const& value) : mut(value, &value->m_mut.m_count) { (*mut.count)++; }
+  void bind(T* const& value) { reset(value, &value->m_mut.m_count); }
   Ref &operator=(T const& value) { *get() = value; return *this; }
 
   template <typename U>
-  Ref(U* const& value) : mut(value, &value->mut.count) { (*mut.count)++; }
+  Ref(U* const& value) : mut(value, &value->m_mut.m_count) { (*mut.count)++; }
   template <typename U>
-  void bind(U* const& value) { reset(value, &value->mut.count); }
+  void bind(U* const& value) { reset(value, &value->m_mut.m_count); }
   template <typename U>
   Ref &operator=(U const& value) { *get() = value; return *this; }
 
