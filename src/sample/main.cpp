@@ -1,18 +1,22 @@
 #include <rend/rend.h>
 
-struct SampleWindow : Window
+struct SampleWindow : rend::Window
 {
-  box<Image> image;
+  iron::box<Image> image;
 
   SampleWindow()
   {
-    //image = getContext()->createImage();
-    getContext()->createImage();
+    image = getContext()->createImage();
   }
 
   void onTick()
   {
 
+  }
+
+  void onDisplay()
+  {
+    ref<UiShader> ui = getContext()->getUiShader();
   }
 };
 
@@ -29,8 +33,7 @@ int main()
   KeyInfo ki = Keyboard::queryKey(KEY_D);
  */
 
-  ref<UiShader> ui = window.getContext()->getUiShader();
-  box<Mesh> m = window.getContext()->createMesh();
+  box<Mesh> m = context->createMesh();
   //val<Face> f;
   //m->addFace(f);
 
@@ -38,3 +41,4 @@ int main()
 
   return 0;
 }
+

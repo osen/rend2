@@ -2,6 +2,10 @@
 #include "Context.h"
 #include "sys.h"
 
+#ifdef USE_SDL2
+  #include <SDL2/SDL.h>
+#endif
+
 #include <GL/glew.h>
 
 namespace rend
@@ -21,8 +25,10 @@ Window::Window()
     panic("Only one window instance allowed");
   }
 
+#ifdef USE_SDL2
   sys = box<SysWindow>::make();
-  context = box<Context>::make(this);
+#endif
+  context = ::box<Context>::make(this);
 
   instance.bind(this);
 }
@@ -39,11 +45,17 @@ ref<Context> Window::getContext()
 
 ref<SysWindow> Window::getSys()
 {
+#ifdef USE_SDL2
   return sys;
+#endif
+#ifdef USE_FLTK
+  return this;
+#endif
 }
 
 void Window::start()
 {
+#ifdef USE_SDL2
   SDL_Event e = {0};
 
   quit = false;
@@ -59,19 +71,45 @@ void Window::start()
     }
 
     onTick();
-
-    glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    onDisplay();
+    display();
 
     SDL_GL_SwapWindow(sys->sys);
   }
+#endif
+#ifdef USE_FLTK
+  Fl::run();
+#endif
 }
+
+#ifdef USE_FLTK
+void Window::draw()
+{
+  display();
+}
+#endif
 
 void Window::stop()
 {
   quit = true;
+}
+
+void Window::display()
+{
+  if(!initialized)
+  {
+    if(glewInit() != GLEW_OK)
+    {
+      panic("Failed to initialize glew");
+    }
+
+    initialized = true;
+  }
+
+  //glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
+  glClearColor(0.9f, 0.0f, 0.0f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  onDisplay();
 }
 
 void Window::onTick() { }

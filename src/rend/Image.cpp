@@ -7,7 +7,7 @@ namespace rend
 
 Image::Image(ref<Context> context) : context(context)
 {
-  sys = box<SysTexture>::make(context->getSys());
+  //sys = box<SysTexture>::make(context->getSys());
 }
 
 }

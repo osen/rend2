@@ -1,4 +1,14 @@
-#include <SDL2/SDL.h>
+#ifndef REND_SYS_H
+#define REND_SYS_H
+
+#ifdef USE_SDL2
+  #include <SDL2/SDL.h>
+#endif
+#ifdef USE_FLTK
+  #include <FL/Fl.H>
+  #include <FL/Fl_Gl_Window.H>
+#endif
+
 #include <GL/glew.h>
 
 #include <iron>
@@ -9,6 +19,7 @@
 namespace rend
 {
 
+#ifdef USE_SDL2
 struct SysSdl
 {
   SysSdl()
@@ -81,11 +92,11 @@ struct SysContext
       panic("Failed to create context");
     }
 
-    if(glewInit() != GLEW_OK)
-    {
-      SDL_GL_DeleteContext(sys);
-      panic("Failed to initialize glew");
-    }
+    //if(glewInit() != GLEW_OK)
+    //{
+    //  SDL_GL_DeleteContext(sys);
+    //  panic("Failed to initialize glew");
+    //}
   }
 
   ~SysContext()
@@ -97,6 +108,38 @@ struct SysContext
   ref<SysWindow> window;
   unique<SDL_GLContext> sys;
 };
+#endif
+
+#ifdef USE_FLTK
+struct SysWindow : Fl_Gl_Window, enable_ref
+{
+  SysWindow() : Fl_Gl_Window(800, 600)
+  {
+    SYS_LOG("Fl_Gl_Window");
+    resizable(this);
+    end();
+    show();
+  }
+
+  ~SysWindow()
+  {
+    SYS_LOG("~Fl_Gl_Window");
+  }
+};
+
+struct SysContext
+{
+  SysContext(ref<SysWindow> window) : window(window)
+  {
+    //if(glewInit() != GLEW_OK)
+    //{
+    //  panic("Failed to initialize glew");
+    //}
+  }
+
+  ref<SysWindow> window;
+};
+#endif
 
 struct SysTexture
 {
@@ -199,4 +242,6 @@ struct SysProgram
 };
 
 }
+
+#endif
 

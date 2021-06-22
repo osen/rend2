@@ -1,6 +1,6 @@
-#include <SDL2/SDL.h>
+#include "sys.h"
 
-#include <iron>
+//#include <iron>
 
 namespace rend
 {
@@ -8,7 +8,12 @@ namespace rend
 struct Context;
 struct SysWindow;
 
-struct Window : enable_ref
+struct Window :
+#ifdef USE_FLTK
+SysWindow
+#else
+enable_ref
+#endif
 {
   //static ref<Window> getInstance();
 
@@ -23,10 +28,18 @@ struct Window : enable_ref
 private:
   static ref<Window> instance;
 
+#ifdef USE_SDL2
   box<SysWindow> sys;
+#endif
 
-  box<Context> context;
+  ::box<Context> context;
   unique<bool> quit;
+  unique<bool> initialized;
+
+#ifdef USE_FLTK
+  void draw();
+#endif
+  void display();
 
   virtual void onTick();
   virtual void onDisplay();

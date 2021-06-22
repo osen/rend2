@@ -35,6 +35,7 @@ struct Manager : public Employee
 int main()
 {
 
+  {
 #include "val.h"
 #include "box.h"
 #include "vec.h"
@@ -42,8 +43,11 @@ int main()
 #include "string.h"
 #include "file.h"
 #include "enable_ref.h"
+  }
 
   run_misc();
+
+  //printf("Remaining: %i\n", enable_ref::getTotal());
 
   return 0;
 }

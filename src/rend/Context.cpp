@@ -11,8 +11,6 @@ namespace rend
 Context::Context(ref<Window> window)
 {
   sys = box<SysContext>::make(window->getSys());
-
-  uiShader = box<UiShader>::make(this);
 }
 
 ref<SysContext> Context::getSys()
@@ -31,13 +29,17 @@ box<Mesh> Context::createMesh()
 box<Image> Context::createImage()
 {
   box<Image> rtn = box<Image>::make(this);
-  //rtn->context.bind(this);
 
   return rtn;
 }
 
 ref<UiShader> Context::getUiShader()
 {
+  if(!uiShader.valid())
+  {
+    uiShader = box<UiShader>::make(this);
+  }
+
   return uiShader;
 }
 
