@@ -3,13 +3,13 @@
 namespace iron
 {
 
-struct string
+struct String
 {
-  string() { m_data.push(0); }
-  //string(string const &copy) : m_data(copy.m_data) { }
-  //string &operator=(string const &other) { m_data = other.m_data; return *this; }
+  String() { m_data.push(0); }
+  //String(String const& copy) : m_data(copy.m_data) { }
+  //String &operator=(String const& other) { m_data = other.m_data; return *this; }
 
-  string(char const * const &str)
+  String(char const* const& str)
   {
     size_t len = strlen(str);
     m_data.resize(len + 1);
@@ -22,11 +22,11 @@ struct string
     // Don't need a null char at end because should be 0
   }
 
-  char &operator[](vec_idx const &idx) const
+  char &operator[](VectorIndex const& idx) const
   {
     if(idx + 1 >= m_data.size())
     {
-      panic("Index past end of string");
+      panic("Index past end of String");
     }
 
     return m_data[idx];
@@ -38,7 +38,7 @@ struct string
     m_data.push(0);
   }
 
-  void append(char const * const &str)
+  void append(char const* const& str)
   {
     size_t len = strlen(str);
     size_t origSize = m_data.size() - 1;
@@ -53,7 +53,7 @@ struct string
   }
 
 private:
-  vec<char> m_data;
+  Vector<char> m_data;
 
 };
 

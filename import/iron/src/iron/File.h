@@ -22,12 +22,12 @@ struct freader
     if(!fp.valid()) return;
 
     fclose(*fp);
-    fp = box<FILE *>();
+    fp = Box<FILE *>();
   }
 
   void open(const char *path)
   {
-    box<FILE *> fp = box<FILE *>::make();
+    Box<FILE *> fp = Box<FILE *>::make();
 
     *fp = fopen(path, "r");
 
@@ -72,7 +72,7 @@ struct freader
   }
 
 private:
-  box<FILE *> fp;
+  Box<FILE *> fp;
 
 };
 

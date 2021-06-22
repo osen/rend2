@@ -4,43 +4,43 @@ namespace iron
 {
 
 template <typename T>
-struct vec;
+struct Vector;
 
 template <typename T, size_t S>
-struct array;
+struct Array;
 
-struct vec_idx
+struct VectorIndex
 {
-  vec_idx(size_t const &value) : value(value), count() { }
-  ~vec_idx() { (*count)--; }
+  VectorIndex(size_t const& value) : value(value), count() { }
+  ~VectorIndex() { (*count)--; }
 
-  operator size_t const &() const { return value; }
+  operator size_t const&() const { return value; }
 
 private:
   template <typename T>
-  friend struct vec;
+  friend struct Vector;
 
   template <typename T, size_t S>
-  friend struct array;
+  friend struct Array;
 
   size_t value;
   mutable int *count;
 
-  vec_idx(const vec_idx &copy); // : value(copy.value), count() { }
-  vec_idx &operator=(const vec_idx &other); // { value = other.value; return *this; }
+  VectorIndex(VectorIndex const& copy); // : value(copy.value), count() { }
+  VectorIndex &operator=(VectorIndex const& other); // { value = other.value; return *this; }
 };
 
 template <typename T>
-struct vec
+struct Vector
 {
-  vec() : count(), curr(), max(), data() { }
-  vec(vec const &copy) : count(), curr(), max(), data() { clone(copy); }
-  vec &operator=(vec const &other) { if(&other != this) { clone(other); } return *this; }
-  ~vec() { wipe(); }
+  Vector() : count(), curr(), max(), data() { }
+  Vector(Vector const& copy) : count(), curr(), max(), data() { clone(copy); }
+  Vector &operator=(Vector const& other) { if(&other != this) { clone(other); } return *this; }
+  ~Vector() { wipe(); }
 
   size_t size() const { return curr; }
 
-  void push(T const &value)
+  void push(T const& value)
   {
     check();
 
@@ -63,7 +63,7 @@ struct vec
     curr = newSize;
   }
 
-  T &operator[](vec_idx const &idx) const
+  T &operator[](VectorIndex const& idx) const
   { 
     count++;
     idx.count = &count;
@@ -147,7 +147,7 @@ private:
     max = nm;
   }
 
-  void clone(vec const &copy)
+  void clone(Vector const& copy)
   {
     check();
 

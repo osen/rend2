@@ -2,16 +2,16 @@ namespace iron
 {
 
 template <typename T>
-struct ref;
+struct Ref;
 
-struct enable_ref
+struct EnableRef
 {
-  enable_ref() { getTotal()++; }
+  EnableRef() { getTotal()++; }
 
-  enable_ref(enable_ref const &copy) { getTotal()++; }
-  enable_ref &operator=(enable_ref const &other) { return *this; }
+  EnableRef(EnableRef const &copy) { getTotal()++; }
+  EnableRef &operator=(EnableRef const &other) { return *this; }
 
-  ~enable_ref()
+  ~EnableRef()
   {
     getTotal()--;
 
@@ -30,7 +30,7 @@ struct enable_ref
 
 private:
   template <typename T>
-  friend struct ref;
+  friend struct Ref;
 
   mutable struct Mut
   {

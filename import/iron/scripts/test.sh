@@ -21,7 +21,6 @@ run()
   compile_fail VAL_CONST_ASSIGN_4
   compile_fail VAL_CONST_ASSIGN_5
   compile_fail VAL_CONST_ASSIGN_6
-  compile_fail UNIQUE_COPY_INITIALIZATION
 
   exec_success BOX
   exec_success BOX_INIT
@@ -46,6 +45,7 @@ run()
   exec_success VEC_PUSH
   exec_success VEC_REF
   exec_success VEC_COPY
+  exec_success VEC_BOX
   exec_fail VEC_OOB
   exec_fail VEC_DANGLE_1
   exec_fail VEC_DANGLE_2

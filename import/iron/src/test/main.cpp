@@ -1,20 +1,20 @@
 #include <iron>
 
-struct Employee : enable_ref
+struct Employee : EnableRef
 {
-  val<int> id;
+  Value<int> id;
 
   ~Employee()
   {
 
   }
 
-  void vec_sink(vec<box<Employee> > &emps)
+  void vec_sink(Vector<Box<Employee> > &emps)
   {
     emps.clear();
   }
 
-  void box_sink(box<Employee> &emp)
+  void box_sink(Box<Employee> &emp)
   {
     emp.reset();
   }
@@ -22,7 +22,7 @@ struct Employee : enable_ref
 
 struct Manager : public Employee
 {
-  val<int> bonus;
+  Value<int> bonus;
 
   ~Manager()
   {
@@ -47,7 +47,7 @@ int main()
 
   run_misc();
 
-  //printf("Remaining: %i\n", enable_ref::getTotal());
+  //printf("Remaining: %i\n", EnableRef::getTotal());
 
   return 0;
 }

@@ -2,42 +2,42 @@ namespace iron
 {
 
 template <typename T>
-struct ref;
+struct Ref;
 
 template <typename T>
-struct box
+struct Box
 {
   /*
-   * box
+   * Box
    */
-  box() : m_raw(), m_deleter(), m_count() { }
-  ~box() { reset(); }
+  Box() : m_raw(), m_deleter(), m_count() { }
+  ~Box() { reset(); }
 
-  box(box const &copy) : m_raw(copy.m_raw), m_deleter(copy.m_deleter),
+  Box(Box const &copy) : m_raw(copy.m_raw), m_deleter(copy.m_deleter),
     m_count(copy.m_count) { copy.release(); }
 
-  box &operator=(box const &other) { if(&other != this) { reset();
+  Box &operator=(Box const &other) { if(&other != this) { reset();
     m_raw = other.m_raw; m_deleter = other.m_deleter; m_count = other.m_count;
     other.release(); } return *this; }
 
   template <typename U>
-  box(box<U> const &other) : m_raw(other.m_raw), m_deleter(other.m_deleter),
+  Box(Box<U> const &other) : m_raw(other.m_raw), m_deleter(other.m_deleter),
     m_count(other.m_count) { other.release(); }
 
   template <typename U>
-  box &operator=(box<U> const &other) { if(other.m_raw != this->m_raw) { reset();
+  Box &operator=(Box<U> const &other) { if(other.m_raw != this->m_raw) { reset();
     m_raw = other.m_raw; m_deleter = other.m_deleter; m_count = other.m_count;
     other.release(); } return *this; }
 
   /*
    * operators
    */
-  ref<T> operator->() const;
+  Ref<T> operator->() const;
   operator T *() const { return get(); }
 
-  static box make()
+  static Box make()
   {
-    box rtn;
+    Box rtn;
 
     rtn.m_raw = new T();
     rtn.m_deleter = deleter;
@@ -47,9 +47,9 @@ struct box
   }
 
   template <typename U>
-  static box make(U &u)
+  static Box make(U &u)
   {
-    box rtn;
+    Box rtn;
 
     rtn.m_raw = new T(u);
     rtn.m_deleter = deleter;
@@ -59,9 +59,9 @@ struct box
   }
 
   template <typename U>
-  static box make(U const &u)
+  static Box make(U const &u)
   {
-    box rtn;
+    Box rtn;
 
     rtn.m_raw = new T(u);
     rtn.m_deleter = deleter;
@@ -71,9 +71,9 @@ struct box
   }
 
   template <typename U, typename V>
-  static box make(U &u, V &v)
+  static Box make(U &u, V &v)
   {
-    box rtn;
+    Box rtn;
 
     rtn.m_raw = new T(u, v);
     rtn.m_deleter = deleter;
@@ -83,9 +83,9 @@ struct box
   }
 
   template <typename U, typename V>
-  static box make(U const &u, V const &v)
+  static Box make(U const &u, V const &v)
   {
-    box rtn;
+    Box rtn;
 
     rtn.m_raw = new T(u, v);
     rtn.m_deleter = deleter;
@@ -129,10 +129,10 @@ struct box
 
 private:
   template <typename U>
-  friend struct ref;
+  friend struct Ref;
 
   template <typename U>
-  friend struct box;
+  friend struct Box;
 
   T mutable *m_raw;
   mutable void (*m_deleter)(void *);
@@ -162,7 +162,7 @@ private:
 };
 
 //template <typename T>
-//ref<T> box<T>::operator->() const { return *this; }
+//Ref<T> Box<T>::operator->() const { return *this; }
 
 }
 

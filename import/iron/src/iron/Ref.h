@@ -2,82 +2,68 @@ namespace iron
 {
 
 template <typename T>
-struct ref
+struct Ref
 {
   template <typename U>
-  friend struct ref;
+  friend struct Ref;
 
   /*
-   * ref
+   * Ref
    */
-  ref() : mut() { }
-  ref(const ref &copy) : mut(copy.mut.raw, copy.mut.count) { if(mut.count) (*mut.count)++; }
-  ref &operator=(const ref &other) { *get() = other; return *this; }
-  ~ref() { reset(); }
-  void bind(const ref &other) { reset(other.mut.raw, other.mut.count); }
+  Ref() : mut() { }
+  Ref(Ref const& copy) : mut(copy.mut.raw, copy.mut.count) { if(mut.count) (*mut.count)++; }
+  Ref &operator=(Ref const& other) { *get() = other; return *this; }
+  ~Ref() { reset(); }
+  void bind(Ref const& other) { reset(other.mut.raw, other.mut.count); }
 
   template <typename U>
-  ref(const ref<U> &other) : mut(other.mut.raw, other.mut.count) { if(mut.count) (*mut.count)++; }
+  Ref(Ref<U> const& other) : mut(other.mut.raw, other.mut.count) { if(mut.count) (*mut.count)++; }
   template <typename U>
-  ref &operator=(const ref<U> &other) { *get() = other; return *this; }
+  Ref &operator=(Ref<U> const& other) { *get() = other; return *this; }
   template <typename U>
-  void bind(const ref<U> &other) { reset(other.mut.raw, other.mut.count); }
+  void bind(Ref<U> const& other) { reset(other.mut.raw, other.mut.count); }
 
   /*
-   * val
+   * Value
    */
-  ref(const val<T> &value) : mut(&value.mut.raw, &value.mut.count) { if(mut.count) (*mut.count)++; }
-  ref &operator=(const val<T> &other) { *get() = other; return *this; }
-  void bind(const val<T> &value) { reset(&value.mut.raw, &value.mut.count); }
+  Ref(Value<T> const& value) : mut(&value.mut.raw, &value.mut.count) { if(mut.count) (*mut.count)++; }
+  Ref &operator=(Value<T> const& other) { *get() = other; return *this; }
+  void bind(Value<T> const& value) { reset(&value.mut.raw, &value.mut.count); }
 
   template <typename U>
-  ref(const val<U> &value) : mut(&value.mut.raw, &value.mut.count) { if(mut.count) (*mut.count)++; }
+  Ref(Value<U> const& value) : mut(&value.mut.raw, &value.mut.count) { if(mut.count) (*mut.count)++; }
   template <typename U>
-  ref &operator=(const val<U> &other) { *get() = other; return *this; }
+  Ref &operator=(Value<U> const& other) { *get() = other; return *this; }
   template <typename U>
-  void bind(const val<U> &value) { reset(&value.mut.raw, &value.mut.count); }
+  void bind(Value<U> const& value) { reset(&value.mut.raw, &value.mut.count); }
 
   /*
-   * unique
+   * Box
    */
-  ref(const unique<T> &other) : mut(&other.mut.raw, &other.mut.count) { if(mut.count) (*mut.count)++; }
-  ref &operator=(const unique<T> &other) { *get() = other; return *this; }
-  void bind(const unique<T> &other) { reset(&other.mut.raw, &other.mut.count); }
+  Ref(Box<T> const& value) : mut(value.m_raw, value.m_count) { if(mut.count) (*mut.count)++; }
+  Ref &operator=(Box<T> const& other) { *get() = other; return *this; }
+  void bind(Box<T> const& value) { reset(value.m_raw, value.m_count); }
 
   template <typename U>
-  ref(const unique<U> &other) : mut(&other.mut.raw, &other.mut.count) { if(mut.count) (*mut.count)++; }
+  Ref(Box<U> const& value) : mut(value.m_raw, value.m_count) { if(mut.count) (*mut.count)++; }
   template <typename U>
-  ref &operator=(const unique<U> &other) { *get() = other; return *this; }
+  Ref &operator=(Box<U> const& other) { *get() = other; return *this; }
   template <typename U>
-  void bind(const unique<U> &other) { reset(&other.mut.raw, &other.mut.count); }
+  void bind(Box<U> const& value) { reset(value.m_raw, value.m_count); }
 
   /*
-   * box
+   * T : EnableRef
    */
-  ref(const box<T> &value) : mut(value.m_raw, value.m_count) { if(mut.count) (*mut.count)++; }
-  ref &operator=(const box<T> &other) { *get() = other; return *this; }
-  void bind(const box<T> &value) { reset(value.m_raw, value.m_count); }
+  Ref(T* const& value) : mut(value, &value->mut.count) { (*mut.count)++; }
+  void bind(T* const& value) { reset(value, &value->mut.count); }
+  Ref &operator=(T const& value) { *get() = value; return *this; }
 
   template <typename U>
-  ref(const box<U> &value) : mut(value.m_raw, value.m_count) { if(mut.count) (*mut.count)++; }
+  Ref(U* const& value) : mut(value, &value->mut.count) { (*mut.count)++; }
   template <typename U>
-  ref &operator=(const box<U> &other) { *get() = other; return *this; }
+  void bind(U* const& value) { reset(value, &value->mut.count); }
   template <typename U>
-  void bind(const box<U> &value) { reset(value.m_raw, value.m_count); }
-
-  /*
-   * T : enable_ref
-   */
-  ref(T *const &value) : mut(value, &value->mut.count) { (*mut.count)++; }
-  void bind(T *const &value) { reset(value, &value->mut.count); }
-  ref &operator=(T const &value) { *get() = value; return *this; }
-
-  template <typename U>
-  ref(U *const &value) : mut(value, &value->mut.count) { (*mut.count)++; }
-  template <typename U>
-  void bind(U *const &value) { reset(value, &value->mut.count); }
-  template <typename U>
-  ref &operator=(U const &value) { *get() = value; return *this; }
+  Ref &operator=(U const& value) { *get() = value; return *this; }
 
   /*
    * operators
@@ -86,7 +72,7 @@ struct ref
   //T &operator->() const { return *get(); }
   //T *operator&() const { return get(); }
   //T &operator*() const { return *get(); }
-  operator T &() const { return *get(); }
+  operator T&() const { return *get(); }
 
   bool valid() const
   {
@@ -107,10 +93,10 @@ private:
     int *count;
 
     Mut() : raw(), count() { }
-    Mut(T *const &raw, int *const &count) : raw(raw), count(count) { }
+    Mut(T* const& raw, int* const& count) : raw(raw), count(count) { }
   } mut;
 
-  T *const &get() const
+  T* const& get() const
   {
     if(!mut.count)
     {
@@ -120,7 +106,7 @@ private:
     return mut.raw;
   }
 
-  void reset(T *const &raw, int *const &count) const
+  void reset(T* const& raw, int* const& count) const
   {
     reset();
 
@@ -133,7 +119,7 @@ private:
 };
 
 template <typename T>
-ref<T> box<T>::operator->() const { return *this; }
+Ref<T> Box<T>::operator->() const { return *this; }
 
 }
 

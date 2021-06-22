@@ -2,14 +2,14 @@ namespace iron
 {
 
 template <typename T, size_t S>
-struct array
+struct Array
 {
-  array() : m_data(), m_size(S), m_count() { }
-  ~array() { check(); }
+  Array() : m_data(), m_size(S), m_count() { }
+  ~Array() { check(); }
 
   size_t size() const { return m_size; }
 
-  const T &operator[](vec_idx const &_idx) const
+  T const& operator[](VectorIndex const& _idx) const
   {
     m_count++;
     _idx.count = &m_count;
@@ -22,7 +22,7 @@ struct array
     return m_data[_idx];
   }
 
-  T &operator[](vec_idx const &_idx)
+  T &operator[](VectorIndex const& _idx)
   {
     m_count++;
     _idx.count = &m_count;

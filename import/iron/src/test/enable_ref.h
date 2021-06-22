@@ -1,8 +1,8 @@
 #ifdef TEST_ENABLE_REF
   Employee a;
-  ref<Employee> b(&a);
+  Ref<Employee> b(&a);
   b->id = 7;
-  ref<Employee> c;
+  Ref<Employee> c;
   c.bind(&a);
   b->id = 3;
   c = b;
