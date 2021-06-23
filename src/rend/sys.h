@@ -20,7 +20,7 @@ namespace rend
 {
 
 #ifdef USE_SDL2
-struct SysSdl
+struct SysSdl : DisableCopy
 {
   SysSdl()
   {
@@ -52,7 +52,7 @@ struct SysSdl
   }
 };
 
-struct SysWindow
+struct SysWindow : DisableCopy
 {
   SysWindow()
   {
@@ -80,7 +80,7 @@ struct SysWindow
   Value<SDL_Window *> sys;
 };
 
-struct SysContext
+struct SysContext : DisableCopy
 {
   SysContext(Ref<SysWindow> window) : window(window)
   {
@@ -111,7 +111,7 @@ struct SysContext
 #endif
 
 #ifdef USE_FLTK
-struct SysWindow : Fl_Gl_Window, EnableRef
+struct SysWindow : Fl_Gl_Window, EnableRef, DisableCopy
 {
   SysWindow() : Fl_Gl_Window(800, 600)
   {
@@ -127,7 +127,7 @@ struct SysWindow : Fl_Gl_Window, EnableRef
   }
 };
 
-struct SysContext
+struct SysContext : DisableCopy
 {
   SysContext(Ref<SysWindow> window) : window(window)
   {
@@ -141,7 +141,7 @@ struct SysContext
 };
 #endif
 
-struct SysTexture
+struct SysTexture : DisableCopy
 {
   SysTexture(Ref<SysContext> context) : context(context)
   {
@@ -164,7 +164,7 @@ struct SysTexture
   Value<GLuint> sys;
 };
 
-struct SysBuffer
+struct SysBuffer : DisableCopy
 {
   SysBuffer(Ref<SysContext> context) : context(context)
   {
@@ -187,7 +187,7 @@ struct SysBuffer
   Value<GLuint> sys;
 };
 
-struct SysShader
+struct SysShader : DisableCopy
 {
   SysShader(Ref<SysContext> context, bool isFragment) : context(context)
   {
@@ -218,7 +218,7 @@ struct SysShader
   Value<GLuint> sys;
 };
 
-struct SysProgram
+struct SysProgram : DisableCopy
 {
   SysProgram(Ref<SysContext> context) : context(context)
   {

@@ -11,7 +11,7 @@ struct UiShader;
 struct BasicShader;
 struct LightShader;
 
-struct Context : EnableRef
+struct Context : EnableRef, DisableCopy
 {
   Context(Ref<Window> window);
 

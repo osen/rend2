@@ -9,7 +9,7 @@ namespace rend
 struct Context;
 struct SysProgram;
 
-struct Shader
+struct Shader : DisableCopy
 {
   Shader(Ref<Context> context);
 

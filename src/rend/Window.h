@@ -8,11 +8,11 @@ namespace rend
 struct Context;
 struct SysWindow;
 
-struct Window :
+struct Window
 #ifdef USE_FLTK
-SysWindow
+: SysWindow
 #else
-EnableRef
+: EnableRef, DisableCopy
 #endif
 {
   //static Ref<Window> getInstance();
