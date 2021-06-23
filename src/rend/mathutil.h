@@ -8,23 +8,23 @@ namespace rend
 
 struct Vec2
 {
-  val<float> x;
-  val<float> y;
+  Value<float> x;
+  Value<float> y;
 };
 
 struct Vec3
 {
-  val<float> x;
-  val<float> y;
-  val<float> z;
+  Value<float> x;
+  Value<float> y;
+  Value<float> z;
 };
 
 struct Vec4
 {
-  val<float> x;
-  val<float> y;
-  val<float> z;
-  val<float> w;
+  Value<float> x;
+  Value<float> y;
+  Value<float> z;
+  Value<float> w;
 
   Vec4();
   Vec4(Vec3 const &xyz, float w);
@@ -45,17 +45,17 @@ struct Mat4
   static Mat4 perspective(float fov, float aspect, float near, float far);
   static Mat4 orthographic(float width, float height);
 
-  array<float, 16> m;
+  Array<float, 16> m;
 
   Vec4 operator*(Vec4 const &value) const;
 };
 
 struct Rect
 {
-  val<float> x;
-  val<float> y;
-  val<float> width;
-  val<float> height;
+  Value<float> x;
+  Value<float> y;
+  Value<float> width;
+  Value<float> height;
 };
 
 }

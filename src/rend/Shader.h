@@ -11,10 +11,10 @@ struct SysProgram;
 
 struct Shader
 {
-  Shader(ref<Context> context);
+  Shader(Ref<Context> context);
 
 protected:
-  box<SysProgram> sys;
+  Box<SysProgram> sys;
 };
 
 }

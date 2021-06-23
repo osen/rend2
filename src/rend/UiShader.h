@@ -9,7 +9,7 @@ struct Context;
 
 struct UiShader : Shader
 {
-  UiShader(ref<Context> context);
+  UiShader(Ref<Context> context);
 };
 
 }

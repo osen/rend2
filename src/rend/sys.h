@@ -56,7 +56,7 @@ struct SysWindow
 {
   SysWindow()
   {
-    sdl = box<SysSdl>::make();
+    sdl = Box<SysSdl>::make();
     SYS_LOG("SDL_CreateWindow");
 
     sys = SDL_CreateWindow("SDL_Window",
@@ -76,13 +76,13 @@ struct SysWindow
     SDL_DestroyWindow(sys);
   }
 
-  box<SysSdl> sdl;
-  unique<SDL_Window *> sys;
+  Box<SysSdl> sdl;
+  Value<SDL_Window *> sys;
 };
 
 struct SysContext
 {
-  SysContext(ref<SysWindow> window) : window(window)
+  SysContext(Ref<SysWindow> window) : window(window)
   {
     SYS_LOG("SDL_GL_CreateContext");
     sys = SDL_GL_CreateContext(window->sys);
@@ -105,13 +105,13 @@ struct SysContext
     SDL_GL_DeleteContext(sys);
   }
 
-  ref<SysWindow> window;
-  unique<SDL_GLContext> sys;
+  Ref<SysWindow> window;
+  Value<SDL_GLContext> sys;
 };
 #endif
 
 #ifdef USE_FLTK
-struct SysWindow : Fl_Gl_Window, enable_ref
+struct SysWindow : Fl_Gl_Window, EnableRef
 {
   SysWindow() : Fl_Gl_Window(800, 600)
   {
@@ -129,7 +129,7 @@ struct SysWindow : Fl_Gl_Window, enable_ref
 
 struct SysContext
 {
-  SysContext(ref<SysWindow> window) : window(window)
+  SysContext(Ref<SysWindow> window) : window(window)
   {
     //if(glewInit() != GLEW_OK)
     //{
@@ -137,13 +137,13 @@ struct SysContext
     //}
   }
 
-  ref<SysWindow> window;
+  Ref<SysWindow> window;
 };
 #endif
 
 struct SysTexture
 {
-  SysTexture(ref<SysContext> context) : context(context)
+  SysTexture(Ref<SysContext> context) : context(context)
   {
     SYS_LOG("glGenTextures");
     glGenTextures(1, &sys);
@@ -160,13 +160,13 @@ struct SysTexture
     glDeleteTextures(1, &sys);
   }
 
-  ref<SysContext> context;
-  unique<GLuint> sys;
+  Ref<SysContext> context;
+  Value<GLuint> sys;
 };
 
 struct SysBuffer
 {
-  SysBuffer(ref<SysContext> context) : context(context)
+  SysBuffer(Ref<SysContext> context) : context(context)
   {
     SYS_LOG("glGenBuffers");
     glGenBuffers(1, &sys);
@@ -183,13 +183,13 @@ struct SysBuffer
     glDeleteBuffers(1, &sys);
   }
 
-  ref<SysContext> context;
-  unique<GLuint> sys;
+  Ref<SysContext> context;
+  Value<GLuint> sys;
 };
 
 struct SysShader
 {
-  SysShader(ref<SysContext> context, bool isFragment) : context(context)
+  SysShader(Ref<SysContext> context, bool isFragment) : context(context)
   {
     SYS_LOG("glCreateShader");
 
@@ -214,13 +214,13 @@ struct SysShader
     glDeleteShader(sys);
   }
 
-  ref<SysContext> context;
-  unique<GLuint> sys;
+  Ref<SysContext> context;
+  Value<GLuint> sys;
 };
 
 struct SysProgram
 {
-  SysProgram(ref<SysContext> context) : context(context)
+  SysProgram(Ref<SysContext> context) : context(context)
   {
     SYS_LOG("glCreateProgram");
     sys = glCreateProgram();
@@ -237,8 +237,8 @@ struct SysProgram
     glDeleteProgram(sys);
   }
 
-  ref<SysContext> context;
-  unique<GLuint> sys;
+  Ref<SysContext> context;
+  Value<GLuint> sys;
 };
 
 }

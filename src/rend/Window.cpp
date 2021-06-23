@@ -11,9 +11,9 @@
 namespace rend
 {
 
-ref<Window> Window::instance;
+Ref<Window> Window::instance;
 
-//ref<Window> Window::getInstance()
+//Ref<Window> Window::getInstance()
 //{
 //  return instance;
 //}
@@ -26,9 +26,9 @@ Window::Window()
   }
 
 #ifdef USE_SDL2
-  sys = box<SysWindow>::make();
+  sys = Box<SysWindow>::make();
 #endif
-  context = ::box<Context>::make(this);
+  context = Box<Context>::make(this);
 
   instance.bind(this);
 }
@@ -38,12 +38,12 @@ Window::~Window()
   instance.reset();
 }
 
-ref<Context> Window::getContext()
+Ref<Context> Window::getContext()
 {
   return context;
 }
 
-ref<SysWindow> Window::getSys()
+Ref<SysWindow> Window::getSys()
 {
 #ifdef USE_SDL2
   return sys;

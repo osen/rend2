@@ -8,13 +8,13 @@ struct Context;
 
 struct Image
 {
-  Image(ref<Context> context);
+  Image(Ref<Context> context);
 
 private:
   friend struct Context;
 
-  box<SysTexture> sys;
-  ref<Context> context;
+  Box<SysTexture> sys;
+  Ref<Context> context;
 
 };
 

@@ -12,29 +12,29 @@ struct Window :
 #ifdef USE_FLTK
 SysWindow
 #else
-enable_ref
+EnableRef
 #endif
 {
-  //static ref<Window> getInstance();
+  //static Ref<Window> getInstance();
 
   Window();
   ~Window();
 
   void start();
   void stop();
-  ref<Context> getContext();
-  ref<SysWindow> getSys();
+  Ref<Context> getContext();
+  Ref<SysWindow> getSys();
 
 private:
-  static ref<Window> instance;
+  static Ref<Window> instance;
 
 #ifdef USE_SDL2
-  box<SysWindow> sys;
+  Box<SysWindow> sys;
 #endif
 
-  ::box<Context> context;
-  unique<bool> quit;
-  unique<bool> initialized;
+  Box<Context> context;
+  Value<bool> quit;
+  Value<bool> initialized;
 
 #ifdef USE_FLTK
   void draw();

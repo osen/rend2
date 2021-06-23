@@ -2,7 +2,7 @@
 
 struct SampleWindow : rend::Window
 {
-  iron::box<Image> image;
+  Box<Image> image;
 
   SampleWindow()
   {
@@ -16,25 +16,25 @@ struct SampleWindow : rend::Window
 
   void onDisplay()
   {
-    ref<UiShader> ui = getContext()->getUiShader();
+    Ref<UiShader> ui = getContext()->getUiShader();
   }
 };
 
 int main()
 {
   SampleWindow window;
-  ref<Context> context(window.getContext());
+  Ref<Context> context(window.getContext());
 
-  val<vec<int> > ints;
+  Value<Vector<int> > ints;
   ints->push(8);
-  ref<vec<int> > refInts = ints;
+  Ref<Vector<int> > refInts = ints;
 
 /*
   KeyInfo ki = Keyboard::queryKey(KEY_D);
  */
 
-  box<Mesh> m = context->createMesh();
-  //val<Face> f;
+  Box<Mesh> m = context->createMesh();
+  //Value<Face> f;
   //m->addFace(f);
 
   window.start();

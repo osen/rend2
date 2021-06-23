@@ -5,9 +5,9 @@
 namespace rend
 {
 
-Shader::Shader(ref<Context> context)
+Shader::Shader(Ref<Context> context)
 {
-  sys = box<SysProgram>::make(context->getSys());
+  sys = Box<SysProgram>::make(context->getSys());
 }
 
 }

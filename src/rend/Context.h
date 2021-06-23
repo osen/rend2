@@ -11,20 +11,20 @@ struct UiShader;
 struct BasicShader;
 struct LightShader;
 
-struct Context : enable_ref
+struct Context : EnableRef
 {
-  Context(ref<Window> window);
+  Context(Ref<Window> window);
 
-  ref<SysContext> getSys();
-  box<Mesh> createMesh();
-  box<Image> createImage();
-  ref<UiShader> getUiShader();
-  ref<BasicShader> getBasicShader();
-  ref<LightShader> getLightShader();
+  Ref<SysContext> getSys();
+  Box<Mesh> createMesh();
+  Box<Image> createImage();
+  Ref<UiShader> getUiShader();
+  Ref<BasicShader> getBasicShader();
+  Ref<LightShader> getLightShader();
 
 private:
-  box<SysContext> sys;
-  box<UiShader> uiShader;
+  Box<SysContext> sys;
+  Box<UiShader> uiShader;
 
 };
 

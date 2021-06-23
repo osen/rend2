@@ -18,10 +18,10 @@ static const char *fragSource =
   "  gl_FragColor = vec4(1, 0, 0, 1);      \n"
   "}                                       \n";
 
-UiShader::UiShader(ref<Context> context) : Shader(context)
+UiShader::UiShader(Ref<Context> context) : Shader(context)
 {
-  box<SysShader> vertShader =
-    box<SysShader>::make(context->getSys(), false);
+  Box<SysShader> vertShader =
+    Box<SysShader>::make(context->getSys(), false);
 
   glShaderSource(vertShader->sys, 1, &vertSource, NULL);
   glCompileShader(vertShader->sys);
@@ -34,8 +34,8 @@ UiShader::UiShader(ref<Context> context) : Shader(context)
     panic("Failed to compile vertex shader");
   }
 
-  box<SysShader> fragShader =
-    box<SysShader>::make(context->getSys(), true);
+  Box<SysShader> fragShader =
+    Box<SysShader>::make(context->getSys(), true);
 
   glShaderSource(fragShader->sys, 1, &fragSource, NULL);
   glCompileShader(fragShader->sys);

@@ -8,36 +8,36 @@
 namespace rend
 {
 
-Context::Context(ref<Window> window)
+Context::Context(Ref<Window> window)
 {
-  sys = box<SysContext>::make(window->getSys());
+  sys = Box<SysContext>::make(window->getSys());
 }
 
-ref<SysContext> Context::getSys()
+Ref<SysContext> Context::getSys()
 {
   return sys;
 }
 
-box<Mesh> Context::createMesh()
+Box<Mesh> Context::createMesh()
 {
-  box<Mesh> rtn = box<Mesh>::make();
+  Box<Mesh> rtn = Box<Mesh>::make();
   rtn->context.bind(this);
 
   return rtn;
 }
 
-box<Image> Context::createImage()
+Box<Image> Context::createImage()
 {
-  box<Image> rtn = box<Image>::make(this);
+  Box<Image> rtn = Box<Image>::make(this);
 
   return rtn;
 }
 
-ref<UiShader> Context::getUiShader()
+Ref<UiShader> Context::getUiShader()
 {
   if(!uiShader.valid())
   {
-    uiShader = box<UiShader>::make(this);
+    uiShader = Box<UiShader>::make(this);
   }
 
   return uiShader;
