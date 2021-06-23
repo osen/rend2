@@ -12,7 +12,7 @@ struct Array
   T const& operator[](VectorIndex const& _idx) const
   {
     m_count++;
-    _idx.count = &m_count;
+    _idx.m_count = &m_count;
 
     if(_idx >= m_size)
     {
@@ -25,7 +25,7 @@ struct Array
   T &operator[](VectorIndex const& _idx)
   {
     m_count++;
-    _idx.count = &m_count;
+    _idx.m_count = &m_count;
 
     if(_idx >= m_size)
     {

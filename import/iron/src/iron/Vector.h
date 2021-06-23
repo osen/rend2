@@ -11,10 +11,10 @@ struct Array;
 
 struct VectorIndex
 {
-  VectorIndex(size_t const& value) : value(value), count() { }
-  ~VectorIndex() { (*count)--; }
+  VectorIndex(size_t const& _value) : m_value(_value), m_count() { }
+  ~VectorIndex() { (*m_count)--; }
 
-  operator size_t const&() const { return value; }
+  operator size_t const&() const { return m_value; }
 
 private:
   template <typename T>
@@ -23,11 +23,11 @@ private:
   template <typename T, size_t S>
   friend struct Array;
 
-  size_t value;
-  mutable int *count;
+  size_t m_value;
+  mutable int* m_count;
 
-  VectorIndex(VectorIndex const& copy); // : value(copy.value), count() { }
-  VectorIndex &operator=(VectorIndex const& other); // { value = other.value; return *this; }
+  VectorIndex(VectorIndex const& _copy); // : m_value(_copy.m_value), m_count() { }
+  VectorIndex &operator=(VectorIndex const& _other); // { m_value = _other.m_value; return *this; }
 };
 
 template <typename T>
@@ -66,7 +66,7 @@ struct Vector
   T &operator[](VectorIndex const& idx) const
   { 
     count++;
-    idx.count = &count;
+    idx.m_count = &count;
 
     if(idx >= curr)
     {
