@@ -1,7 +1,7 @@
 #include "Context.h"
 #include "Window.h"
 #include "Mesh.h"
-#include "Image.h"
+#include "Texture.h"
 #include "sys.h"
 #include "UiShader.h"
 
@@ -26,9 +26,9 @@ Box<Mesh> Context::createMesh()
   return rtn;
 }
 
-Box<Image> Context::createImage()
+Box<Texture> Context::createTexture()
 {
-  Box<Image> rtn = Box<Image>::make(this);
+  Box<Texture> rtn = Box<Texture>::make();
 
   return rtn;
 }

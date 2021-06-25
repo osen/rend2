@@ -10,6 +10,9 @@ struct Vec2
 {
   Value<float> x;
   Value<float> y;
+
+  Vec2() { }
+  Vec2(float _x, float _y) : x(_x), y(_y) { }
 };
 
 struct Vec3
@@ -56,6 +59,18 @@ struct Rect
   Value<float> y;
   Value<float> width;
   Value<float> height;
+};
+
+struct Color
+{
+  Value<float> r;
+  Value<float> g;
+  Value<float> b;
+  Value<float> a;
+
+  Color() { }
+  Color(float _r, float _g, float _b) : r(_r), g(_g), b(_b), a(0) { }
+  Color(float _r, float _g, float _b, float _a) : r(_r), g(_g), b(_b), a(_a) { }
 };
 
 }

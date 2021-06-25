@@ -2,6 +2,8 @@
 
 #include <iron>
 
+#include <memory>
+
 namespace rend
 {
 
@@ -10,7 +12,6 @@ struct Context;
 
 struct Mesh
 {
-
   bool hasNormals();
   bool hasTexCoords();
   bool hasPositions();
@@ -18,6 +19,8 @@ struct Mesh
 
 private:
   friend struct Context;
+  struct Impl;
+  std::shared_ptr<Impl> m_impl;
 
   Ref<Context> context;
   Vector<Face> faces;

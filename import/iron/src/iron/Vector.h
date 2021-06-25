@@ -55,9 +55,19 @@ struct Vector
 
     fit(newSize);
 
-    for(size_t i = curr; i < newSize; i++)
+    if(newSize < curr)
     {
-      new(&data[i]) T();
+      for(size_t i = newSize; i < curr; i++)
+      {
+        data[i].~T();
+      }
+    }
+    else
+    {
+      for(size_t i = curr; i < newSize; i++)
+      {
+        new(&data[i]) T();
+      }
     }
 
     curr = newSize;

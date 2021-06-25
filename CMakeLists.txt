@@ -10,11 +10,12 @@ include_directories(
 
 add_library(rend
   src/rend/Window.cpp
-  src/rend/Image.cpp
+  src/rend/Texture.cpp
   src/rend/Context.cpp
   src/rend/mathutil.cpp
   src/rend/Shader.cpp
   src/rend/UiShader.cpp
+  src/rend/draw.cpp
 )
 target_link_libraries(rend SDL2 fltk fltk_gl GL GLEW)
 

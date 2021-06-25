@@ -1,43 +1,30 @@
 #include <rend/rend.h>
+#include <FL/Fl_Gl_Window.H>
 
-struct SampleWindow : rend::Window
+struct MainWindow : Fl_Gl_Window
 {
-  Box<Image> image;
+  rend::Texture texture;
 
-  SampleWindow()
+  MainWindow() : Fl_Gl_Window(800, 600)
   {
-    image = getContext()->createImage();
+    resizable(this);
+    texture.load("assets/logo.png");
   }
 
-  void onTick()
+  void draw()
   {
+    rend::clear(rend::Color(1, 0, 1));
 
-  }
-
-  void onDisplay()
-  {
-    Ref<UiShader> ui = getContext()->getUiShader();
+    rend::draw(texture, rend::Vec2(10, 10));
   }
 };
 
 int main()
 {
-  SampleWindow window;
-  Ref<Context> context(window.getContext());
+  MainWindow mw;
+  mw.show();
 
-  Value<Vector<int> > ints;
-  ints->push(8);
-  Ref<Vector<int> > refInts = ints;
-
-/*
-  KeyInfo ki = Keyboard::queryKey(KEY_D);
- */
-
-  Box<Mesh> m = context->createMesh();
-  //Value<Face> f;
-  //m->addFace(f);
-
-  window.start();
+  Fl::run();
 
   return 0;
 }
