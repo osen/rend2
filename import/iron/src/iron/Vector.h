@@ -6,6 +6,9 @@ namespace iron
 template <typename T>
 struct Vector;
 
+template <typename T>
+struct Box;
+
 template <typename T, size_t S>
 struct Array;
 
@@ -19,6 +22,9 @@ struct VectorIndex
 private:
   template <typename T>
   friend struct Vector;
+
+  template <typename T>
+  friend struct Box;
 
   template <typename T, size_t S>
   friend struct Array;
